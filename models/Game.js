@@ -18,7 +18,7 @@ const GameSchema = new Schema({
   },
 
   correct: {
-    type: Array,
+    type: String,
     required: true
   },
 

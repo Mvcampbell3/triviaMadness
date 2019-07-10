@@ -17,4 +17,21 @@ router.get("/allusers", (req, res, next) => {
     })
 })
 
+router.post("/signup", (req, res, next) => {
+  const newUser = new db.User({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password
+  });
+  newUser.save()
+    .then(user => {
+      console.log(user);
+      res.status(201).json(user)
+    })
+    .catch(err => {
+      console.log(err);
+      res.json(err)
+    })
+})
+
 module.exports = router;

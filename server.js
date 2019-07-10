@@ -12,6 +12,11 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+app.use("*", (req, res, next) => {
+  req.userID = "5d2559a3b680d908b04ae32b";
+  next();
+})
+
 // Send every request to the React app
 // Define any API routes before this runs
 app.use(routes)
