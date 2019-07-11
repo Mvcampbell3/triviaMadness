@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const User = require("./User");
 
 const GameSchema = new Schema({
   name: {
@@ -27,6 +28,29 @@ const GameSchema = new Schema({
     ref: "User",
     required: true
   }
+})
+
+GameSchema.post("save", function() {
+  console.log("pre save middleware running")
+  console.log(this.creatorID)
+  User.findByIdAndUpdate(this.creatorID, { $push: { gameIDs: this._id } }, { new: true })
+    .then((result) => {
+      console.log(result)
+    })
+    .catch((err) => console.log(err))
+})
+
+GameSchema.pre("remove", function(next) {
+  console.log("pre remove middleware running");
+  User.findByIdAndUpdate(this.creatorID, {$pull:{gameIDs:this._id}}, {new:true})
+    .then(result => {
+      console.log(result);
+      next()
+    })
+    .catch(err => {
+      console.log(err);
+      next(err)
+    })
 })
 
 module.exports = Game = mongoose.model("Game", GameSchema);
