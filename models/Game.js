@@ -8,6 +8,21 @@ const GameSchema = new Schema({
     required: true
   },
 
+  category: {
+    type: String,
+    required: true
+  },
+
+  topic: {
+    type: String,
+    required: true
+  },
+
+  reviewed: {
+    type: Boolean,
+    default: false
+  },
+
   questions: {
     type: Array,
     required: true

@@ -14,10 +14,13 @@ router.get("/", (req, res, next) => {
 })
 
 router.post("/newgame", (req, res, next) => {
+  // When we add in checkAuth middleware, req.user structure will change
   console.log(req.userID);
   const newGame = new db.Game({
     name: req.body.name,
     questions: req.body.questions,
+    topic: req.body.topic,
+    category: req.body.category,
     answers: req.body.answers,
     correct: req.body.correct,
     creatorID: req.userID
