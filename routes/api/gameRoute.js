@@ -5,11 +5,11 @@ router.get("/", (req, res, next) => {
   db.Game.find()
     .then(games => {
       console.log(games);
-      res.json(games);
+      res.status(200).json(games);
     })
     .catch(err => {
       console.log(err);
-      res.json(err);
+      res.status(500).json(err);
     })
 })
 
