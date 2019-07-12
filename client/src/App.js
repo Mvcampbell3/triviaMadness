@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
+import API from "./utils/API"
 
 import Home from "./pages/Home"
 import Lost from "./pages/Lost"
@@ -15,16 +16,34 @@ class App extends Component {
     signup: false
   }
 
-  loginUser = () => {
+  componentDidMount(){
+    this.checkAuth();
+  }
 
+  loginUser = () => {
+    API.loginUser(this.state.email, this.state.password)
+      .then(result => {
+        console.log(result);
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   signupUser = () => {
-
+    API.signupUser(this.state.email, this.state.username, this.state.password)
+      .then(result => {
+        console.log(result);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   checkAuth = () => {
-
+    API.testAPI()
+      .then(result => console.log(result))
+      .catch(err => console.log(err))
   }
 
   switchSignup = () => {
@@ -47,6 +66,8 @@ class App extends Component {
             signup={this.state.signup}
             switchSignup={this.switchSignup}
             handleInputChange={this.handleInputChange}
+            loginUser={this.loginUser}
+            signupUser={this.signupUser}
           />} />
           <Route component={Lost} />
         </Switch>

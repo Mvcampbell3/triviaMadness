@@ -19,8 +19,8 @@ const Login = (props) => {
         </div>
       </div>
       <div className="loginButtons">
-        {props.signup ? <button>Sign Up</button>:<button>Login</button>}
-        <button className="switchSignup" onClick={props.switchSignup}>{props.signup ? "Already a member?":"Not a member yet?"}</button>
+        <button onClick={props.signup ? props.signupUser : props.loginUser}>{props.signup ? "Signup" : "Login"}</button>
+        <button className="switchSignup" onClick={props.switchSignup}>{props.signup ? "Already a member?" : "Not a member yet?"}</button>
       </div>
     </div>
   );
