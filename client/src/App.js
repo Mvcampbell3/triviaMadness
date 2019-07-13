@@ -14,12 +14,17 @@ class App extends Component {
     username: "",
     email: "",
     password: "",
-    id:"",
-    signup: false
+    id: "",
+    signup: false,
   }
 
   componentDidMount() {
     this.checkAuth();
+  }
+
+  logoutUser = () => {
+    localStorage.removeItem("token");
+    this.setState({ user: false, username: "", id: "", password: "", email: "" })
   }
 
   loginUser = () => {
@@ -55,7 +60,7 @@ class App extends Component {
             localStorage.removeItem("token")
             // reroute to login page
           } else {
-            this.setState({user:true, username:result.data.username, id: result.data.id})
+            this.setState({ user: true, username: result.data.username, id: result.data.id })
           }
         })
         .catch(err => {
@@ -84,7 +89,7 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path="/" exact render={props => <Home user={this.state.user} />} />
+          <Route path="/" exact render={props => <Home user={this.state.user} logoutUser={this.logoutUser} />} />
           <Route path="/login" exact render={props => <Login
             user={this.state.user}
             renderRedirect={this.renderRedirect}
@@ -97,7 +102,7 @@ class App extends Component {
             loginUser={this.loginUser}
             signupUser={this.signupUser}
           />} />
-          <Route path="/games" exact render={props => <GameSelection />} />
+          <Route path="/games" exact render={props => <GameSelection renderRedirectLogin={this.renderRedirectLogin} user={this.state.user} />} />
           <Route component={Lost} />
         </Switch>
       </Router>

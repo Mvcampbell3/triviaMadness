@@ -7,6 +7,7 @@ const Home = (props) => {
     <div>
       <h1>This is the Home Page</h1>
       <Link to={props.user ? "/games":"/login"}>{props.user ? "Games":"Login"}</Link>
+      <button onClick={props.logoutUser}>Logout</button>
     </div>
   );
 }
