@@ -3,6 +3,7 @@ import React from 'react';
 const Login = (props) => {
   return (
     <div className="loginBox">
+      {props.renderRedirect()}
       <div className="loginForm">
         <div className="loginGroup">
           <label>Email</label>

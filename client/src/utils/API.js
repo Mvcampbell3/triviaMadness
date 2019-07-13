@@ -11,5 +11,13 @@ export default {
 
   signupUser(email, username, password){
     return Axios.post("/api/user/signup", {email, username, password})
+  },
+
+  checkAuth(){
+    return Axios.get("/api/user/checkauth", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    })
   }
 }

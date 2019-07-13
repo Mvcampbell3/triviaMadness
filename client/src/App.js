@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import API from "./utils/API"
 
 import Home from "./pages/Home"
 import Lost from "./pages/Lost"
 import Login from "./pages/Login"
+import GameSelection from "./pages/GameSelection";
 
 class App extends Component {
   state = {
@@ -13,17 +14,21 @@ class App extends Component {
     username: "",
     email: "",
     password: "",
+    id:"",
     signup: false
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.checkAuth();
   }
 
   loginUser = () => {
+    localStorage.removeItem("token")
     API.loginUser(this.state.email, this.state.password)
       .then(result => {
-        console.log(result);
+        console.log(result.data);
+        this.setState({ user: true, username: result.data.username })
+        localStorage.setItem("token", result.data.token)
       })
       .catch(err => {
         console.log(err)
@@ -41,9 +46,24 @@ class App extends Component {
   }
 
   checkAuth = () => {
-    API.testAPI()
-      .then(result => console.log(result))
-      .catch(err => console.log(err))
+    if (localStorage.getItem("token")) {
+      console.log("has token");
+      API.checkAuth()
+        .then(result => {
+          console.log(result.data)
+          if (!result.data.user) {
+            localStorage.removeItem("token")
+            // reroute to login page
+          } else {
+            this.setState({user:true, username:result.data.username, id: result.data.id})
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    } else {
+      console.log("no token saved")
+    }
   }
 
   switchSignup = () => {
@@ -54,12 +74,20 @@ class App extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  renderRedirect = () => {
+    if (this.state.user) {
+      return <Redirect to='/' />
+    }
+  }
+
   render() {
     return (
       <Router>
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact render={props => <Home user={this.state.user} />} />
           <Route path="/login" exact render={props => <Login
+            user={this.state.user}
+            renderRedirect={this.renderRedirect}
             email={this.state.email}
             password={this.state.password}
             username={this.state.username}
@@ -69,6 +97,7 @@ class App extends Component {
             loginUser={this.loginUser}
             signupUser={this.signupUser}
           />} />
+          <Route path="/games" exact render={props => <GameSelection />} />
           <Route component={Lost} />
         </Switch>
       </Router>

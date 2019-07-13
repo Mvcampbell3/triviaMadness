@@ -2,6 +2,7 @@ const router = require("express").Router();
 const db = require("../../models")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const checkAuth = require("../../middleware/checkAuth")
 
 router.get("/test", (req, res) => {
   res.json("working here at api/user/test");
@@ -96,6 +97,10 @@ router.delete("/deleteuser/:id", (req, res, next) => {
       console.log(err);
       res.json(err)
     })
+})
+
+router.get("/checkauth", checkAuth, (req, res, next) => {
+  res.status(200).json({ user: true, username: req.user.username, id: req.user.id })
 })
 
 module.exports = router;
