@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./gameSelection.css";
 import API from "../../utils/API"
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 class GameSelection extends Component {
   state = {
@@ -50,7 +50,7 @@ class GameSelection extends Component {
         {this.redirectLogin()}
         <h1>This is the Games Page</h1>
         {this.state.gamesLatest.map(game => <div key={game._id}>
-          <button>{game.topic}</button>
+          <Link to="/playgame" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.topic}</Link>
         </div>)}
       </div>
     );

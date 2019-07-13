@@ -27,5 +27,13 @@ export default {
         Authorization: "Bearer " + localStorage.getItem("token")
       }
     })
+  },
+  
+  getGameByID(gameID) {
+    return Axios.get(`api/game/playgame/${gameID}`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    })
   }
 }

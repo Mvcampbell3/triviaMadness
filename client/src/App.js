@@ -7,6 +7,7 @@ import Home from "./pages/Home"
 import Lost from "./pages/Lost"
 import Login from "./pages/Login"
 import GameSelection from "./pages/GameSelection";
+import Game from "./pages/Game"
 
 class App extends Component {
   state = {
@@ -16,6 +17,7 @@ class App extends Component {
     password: "",
     id: "",
     signup: false,
+    gameSelectID: ""
   }
 
   componentDidMount() {
@@ -85,6 +87,10 @@ class App extends Component {
     }
   }
 
+  handleGameSelect = e => {
+    this.setState({ gameSelectID: e.target.dataset.game_id })
+  }
+
   render() {
     return (
       <Router>
@@ -102,7 +108,13 @@ class App extends Component {
             loginUser={this.loginUser}
             signupUser={this.signupUser}
           />} />
-          <Route path="/games" exact render={props => <GameSelection renderRedirectLogin={this.renderRedirectLogin} user={this.state.user} />} />
+          <Route path="/games" exact render={props => <GameSelection
+            renderRedirectLogin={this.renderRedirectLogin}
+            user={this.state.user}
+            gameSelectID={this.state.gameSelectID}
+            handleGameSelect={this.handleGameSelect}
+          />} />
+          <Route path="/playgame" exact render={props => <Game gameSelectID={this.state.gameSelectID} />} />
           <Route component={Lost} />
         </Switch>
       </Router>
