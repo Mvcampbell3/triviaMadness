@@ -57,7 +57,7 @@ router.post("/login", (req, res, next) => {
             username: user.username,
             id: user._id
           },
-            process.env.JWT_KEY, { expiresIn: "1h" }, (err, token) => {
+            process.env.JWT_KEY, { expiresIn: "7h" }, (err, token) => {
               if (err) {
                 console.log(err);
                 // change err code after testing

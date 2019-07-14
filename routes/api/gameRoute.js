@@ -2,7 +2,9 @@ const router = require("express").Router();
 const db = require("../../models");
 const checkAuth = require("../../middleware/checkAuth");
 
-router.get("/", checkAuth, (req, res, next) => {
+// add checkAuth back in to routes!
+
+router.get("/", (req, res, next) => {
   db.Game.find()
     .then(games => {
       console.log(games);
@@ -18,12 +20,10 @@ router.post("/newgame", checkAuth,(req, res, next) => {
   // When we add in checkAuth middleware, req.user structure will change
   console.log(req.user.id);
   const newGame = new db.Game({
-    name: req.body.name,
+    title: req.body.title,
     questions: req.body.questions,
     topic: req.body.topic,
     category: req.body.category,
-    answers: req.body.answers,
-    correct: req.body.correct,
     creatorID: req.user.id
   });
   newGame.save()
@@ -37,7 +37,7 @@ router.post("/newgame", checkAuth,(req, res, next) => {
     })
 })
 
-router.delete("/deletegame/:id", checkAuth, (req, res, next) => {
+router.delete("/deletegame/:id", (req, res, next) => {
   const gameID = req.params.id;
   // check if req.user.id === game.creatorID
   db.Game.findById(gameID)

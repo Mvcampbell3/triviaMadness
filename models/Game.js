@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const User = require("./User");
 
 const GameSchema = new Schema({
-  name: {
+  title: {
     type: String,
     required: true
   },
@@ -25,16 +25,6 @@ const GameSchema = new Schema({
 
   questions: {
     type: Array,
-    required: true
-  },
-
-  answers: {
-    type: Array,
-    required: true,
-  },
-
-  correct: {
-    type: String,
     required: true
   },
 
