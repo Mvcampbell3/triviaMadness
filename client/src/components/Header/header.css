@@ -1,0 +1,16 @@
+header{
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  background-color: lightgray;
+}
+
+nav ul{
+  display: flex;
+  list-style: none;
+}
+
+nav ul li{
+  padding: 3px;
+}

@@ -10,6 +10,8 @@ import GameSelection from "./pages/GameSelection";
 import Game from "./pages/Game"
 import CreateGame from "./pages/CreateGame"
 
+import Header from "./components/Header"
+
 class App extends Component {
   state = {
     user: null,
@@ -97,6 +99,7 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <Header user={this.state.user} logoutUser={this.logoutUser} />
         <Switch>
           <Route path="/" exact render={props => <Home user={this.state.user} logoutUser={this.logoutUser} />} />
           <Route path="/login" exact render={props => <Login
