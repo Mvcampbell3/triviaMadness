@@ -8,10 +8,11 @@ import Lost from "./pages/Lost"
 import Login from "./pages/Login"
 import GameSelection from "./pages/GameSelection";
 import Game from "./pages/Game"
+import CreateGame from "./pages/CreateGame"
 
 class App extends Component {
   state = {
-    user: false,
+    user: null,
     username: "",
     email: "",
     password: "",
@@ -60,6 +61,7 @@ class App extends Component {
           console.log(result.data)
           if (!result.data.user) {
             localStorage.removeItem("token")
+            this.setState({user:false})
             // reroute to login page
           } else {
             this.setState({ user: true, username: result.data.username, id: result.data.id })
@@ -70,6 +72,7 @@ class App extends Component {
         })
     } else {
       console.log("no token saved")
+      this.setState({user:false})
     }
   }
 
@@ -115,6 +118,7 @@ class App extends Component {
             handleGameSelect={this.handleGameSelect}
           />} />
           <Route path="/playgame" exact render={props => <Game gameSelectID={this.state.gameSelectID} />} />
+          <Route path="/creategame" exact render={props => <CreateGame user={this.state.user} username={this.state.username} /> } />
           <Route component={Lost} />
         </Switch>
       </Router>
