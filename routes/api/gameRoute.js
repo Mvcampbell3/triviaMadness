@@ -22,7 +22,6 @@ router.post("/newgame", checkAuth, (req, res, next) => {
   const newGame = new db.Game({
     title: req.body.title,
     questions: req.body.questions,
-    topic: req.body.topic,
     category: req.body.category,
     creatorID: req.user.id,
     correct: req.body.correct

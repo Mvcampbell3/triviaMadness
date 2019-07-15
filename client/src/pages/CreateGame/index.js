@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom"
 import "./createGame.css";
+import API from '../../utils/API';
 
 class CreateGame extends Component {
   state = {
@@ -83,8 +84,21 @@ class CreateGame extends Component {
       prevState.questions = gameQuestions;
       prevState.correct = correctAnswers;
       return prevState;
+    }, () => {
+      console.log("This is in the callback for set state");
+      this.sumbitGame();
     })
 
+  }
+
+  sumbitGame = () => {
+    API.createNewGame(this.state.title, this.state.category, this.state.questions, this.state.correct)
+      .then(result => {
+        console.log(result)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   changeSelect = () => {

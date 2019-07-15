@@ -43,5 +43,17 @@ export default {
         Authorization: "Bearer " + localStorage.getItem("token")
       }
     })
-  } 
+  },
+
+  createNewGame(title, category, questions, correct){
+    return Axios.post("/api/game/newgame", {
+      title,
+      category, 
+      questions,
+      correct
+    }, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }})
+  }
 }

@@ -50,7 +50,7 @@ class GameSelection extends Component {
         {this.redirectLogin()}
         <h1>This is the Games Page</h1>
         {this.state.gamesLatest.map(game => <div key={game._id}>
-          <Link to="/playgame" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.topic}</Link>
+          <Link to="/playgame" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
         </div>)}
       </div>
     );
