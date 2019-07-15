@@ -9,7 +9,6 @@ const Login = (props) => {
           <label>Email</label>
           <input type="email" name="email" autoComplete="off" onChange={e => props.handleInputChange(e)} value={props.email} />
         </div>
-        {/* Need to hide username input group on login */}
         {props.signup ? <div className="loginGroup">
           <label>Username</label>
           <input type="text" name="username" autoComplete="off" onChange={e => props.handleInputChange(e)} value={props.username} />
