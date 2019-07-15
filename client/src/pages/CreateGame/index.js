@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom"
 import "./createGame.css";
-import MultChoiceFour from "../../components/MultChoiceFour";
 
 class CreateGame extends Component {
   state = {
     numberOfQuestions: 0,
     questions: [],
-    correct: []
+    correct: [],
+    title: "",
+    category: ""
   }
 
   sendToLogin = () => {
@@ -39,13 +40,13 @@ class CreateGame extends Component {
     const answer4 = document.createElement("input");
     const answers = [answer1, answer2, answer3, answer4];
 
-    answers.forEach((one,i) => {
+    answers.forEach((one, i) => {
       one.type = "text";
       one.placeholder = `Answer ${i + 1}`
       one.classList = `answer forQuestion${noQs}`
       one.id = `answer${i}question${noQs}`
     })
-    
+
     const correctAnswer = document.createElement("input");
     correctAnswer.className = "correctAnswer"
     correctAnswer.placeholder = "Correct Answer";
@@ -64,7 +65,7 @@ class CreateGame extends Component {
     const noQs = this.state.numberOfQuestions;
     let gameQuestions = [];
     let correctAnswers = [];
-    for (let i = 0; i < noQs; i++){
+    for (let i = 0; i < noQs; i++) {
       gameQuestions[i] = {
         question: document.getElementById(`question${i}`).value,
         answers: [
@@ -78,7 +79,21 @@ class CreateGame extends Component {
     }
     console.log(gameQuestions);
     console.log(correctAnswers)
+    this.setState((prevState) => {
+      prevState.questions = gameQuestions;
+      prevState.correct = correctAnswers;
+      return prevState;
+    })
 
+  }
+
+  changeSelect = () => {
+    console.log("onChange")
+    this.setState({ category: document.getElementById("category").value })
+  }
+
+  handleInput = e => {
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   render() {
@@ -86,6 +101,16 @@ class CreateGame extends Component {
       <div>
         {this.sendToLogin()}
         <h1>This is the create game screen</h1>
+        <input value={this.state.title} type="text" name="title" placeholder="Quiz Title..." onChange={e => this.handleInput(e)} />
+        <select id="category" onChange={this.changeSelect}>
+          <option value="did not select">Pick Category:</option>
+          <option value="History">History</option>
+          <option value="Movies and TV">Movies and TV</option>
+          <option value="Science">Science</option>
+          <option value="Music">Music</option>
+          <option value="Other">Other</option>
+        </select>
+        <hr />
         <button onClick={this.addQuestion}>Add Question</button>
         <div id="questionCreateArea"></div>
         <button onClick={this.grabQuiz}>Sub</button>
