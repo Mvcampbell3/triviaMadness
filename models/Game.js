@@ -28,6 +28,11 @@ const GameSchema = new Schema({
     required: true
   },
 
+  correct: {
+    type: Array,
+    required: true
+  },
+
   creatorID: {
     type: Schema.Types.ObjectId,
     ref: "User",

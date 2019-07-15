@@ -35,5 +35,13 @@ export default {
         Authorization: "Bearer " + localStorage.getItem("token")
       }
     })
-  }
+  },
+
+  gradeGame(gameID, userAnswers) {
+    return Axios.post(`/api/game/gradegame/${gameID}`, {userAnswers}, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    })
+  } 
 }
