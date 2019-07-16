@@ -112,7 +112,7 @@ class CreateGame extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         {this.sendToLogin()}
         <h1>This is the create game screen</h1>
         <input value={this.state.title} type="text" name="title" placeholder="Quiz Title..." onChange={e => this.handleInput(e)} />

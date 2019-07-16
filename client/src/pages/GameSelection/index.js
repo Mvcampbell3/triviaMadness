@@ -46,7 +46,7 @@ class GameSelection extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         {this.redirectLogin()}
         <h1>This is the Games Page</h1>
         {this.state.gamesLatest.map(game => <div key={game._id}>

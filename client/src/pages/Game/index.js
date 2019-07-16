@@ -52,7 +52,7 @@ class Game extends Component {
   // Need to turn questions map into component
   render() {
     return (
-      <div>
+      <div className="container">
         {this.state.loaded ? <div>
           <h1>{this.state.game.title}</h1>
           {this.state.game.questions.map((question, i )=> <div key={i}>
