@@ -63,7 +63,7 @@ class App extends Component {
           console.log(result.data)
           if (!result.data.user) {
             localStorage.removeItem("token")
-            this.setState({user:false})
+            this.setState({ user: false })
             // reroute to login page
           } else {
             this.setState({ user: true, username: result.data.username, id: result.data.id })
@@ -74,7 +74,7 @@ class App extends Component {
         })
     } else {
       console.log("no token saved")
-      this.setState({user:false})
+      this.setState({ user: false })
     }
   }
 
@@ -99,31 +99,34 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Header user={this.state.user} logoutUser={this.logoutUser} />
-        <Switch>
-          <Route path="/" exact render={props => <Home user={this.state.user} logoutUser={this.logoutUser} />} />
-          <Route path="/login" exact render={props => <Login
-            user={this.state.user}
-            renderRedirect={this.renderRedirect}
-            email={this.state.email}
-            password={this.state.password}
-            username={this.state.username}
-            signup={this.state.signup}
-            switchSignup={this.switchSignup}
-            handleInputChange={this.handleInputChange}
-            loginUser={this.loginUser}
-            signupUser={this.signupUser}
-          />} />
-          <Route path="/games" exact render={props => <GameSelection
-            renderRedirectLogin={this.renderRedirectLogin}
-            user={this.state.user}
-            gameSelectID={this.state.gameSelectID}
-            handleGameSelect={this.handleGameSelect}
-          />} />
-          <Route path="/playgame" exact render={props => <Game gameSelectID={this.state.gameSelectID} />} />
-          <Route path="/creategame" exact render={props => <CreateGame user={this.state.user} username={this.state.username} /> } />
-          <Route component={Lost} />
-        </Switch>
+        <div className="background">
+          <Header user={this.state.user} logoutUser={this.logoutUser} />
+          <Switch>
+            <Route path="/" exact render={props => <Home user={this.state.user} logoutUser={this.logoutUser} />} />
+            <Route path="/login" exact render={props => <Login
+              user={this.state.user}
+              renderRedirect={this.renderRedirect}
+              email={this.state.email}
+              password={this.state.password}
+              username={this.state.username}
+              signup={this.state.signup}
+              switchSignup={this.switchSignup}
+              handleInputChange={this.handleInputChange}
+              loginUser={this.loginUser}
+              signupUser={this.signupUser}
+            />} />
+            <Route path="/games" exact render={props => <GameSelection
+              renderRedirectLogin={this.renderRedirectLogin}
+              user={this.state.user}
+              gameSelectID={this.state.gameSelectID}
+              handleGameSelect={this.handleGameSelect}
+            />} />
+            <Route path="/playgame" exact render={props => <Game gameSelectID={this.state.gameSelectID} />} />
+            <Route path="/creategame" exact render={props => <CreateGame user={this.state.user} username={this.state.username} />} />
+            <Route component={Lost} />
+          </Switch>
+        </div>
+
       </Router>
     );
   }

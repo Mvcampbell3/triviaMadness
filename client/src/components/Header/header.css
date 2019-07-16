@@ -2,8 +2,8 @@ header{
   width: 100vw;
   display: flex;
   justify-content: space-between;
-  padding: 0 10px;
-  background-color: lightgray;
+  padding: 10px 10px;
+  background-color: #eee;
 }
 
 nav ul{

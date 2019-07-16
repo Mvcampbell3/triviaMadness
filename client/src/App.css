@@ -3,3 +3,58 @@
   margin: 0;
   padding: 0;
 }
+
+.background{
+  min-height: 100vh;
+  min-width: 100%;
+  background-color: rgb(2, 63, 60);
+}
+
+.container{
+  width: 80%;
+  min-width: 350px;
+  position: relative;
+  top: 20px;
+  left: 10%;
+  padding: 20px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px black;
+}
+
+.inputText{
+  padding: 5px;
+  display: block;
+  width: 80%;
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.formBtn{
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px black solid;
+  background-color: rgb(2, 63, 60);
+  color: white;
+  cursor: pointer;
+}
+
+.formBtn:focus{
+  outline: none;
+}
+
+.switchSignup{
+  color: black;
+  border: none;
+  background-color: white;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.switchSignup:focus{
+  outline: none;
+}
