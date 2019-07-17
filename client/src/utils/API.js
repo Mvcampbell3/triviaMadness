@@ -45,13 +45,8 @@ export default {
     })
   },
 
-  createNewGame(title, category, questions, correct){
-    return Axios.post("/api/game/newgame", {
-      title,
-      category, 
-      questions,
-      correct
-    }, {
+  createNewGame(gameObj){
+    return Axios.post("/api/game/newgame", gameObj, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token")
       }})

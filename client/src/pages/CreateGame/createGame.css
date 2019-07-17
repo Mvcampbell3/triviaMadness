@@ -38,3 +38,21 @@
   background-color: rgb(2, 63, 60);
   color: white;
 }
+
+.clicked{
+  background-color: green;
+}
+
+.deleteQuestion{
+  display: none;
+}
+
+.delBtn{
+  position: relative;
+  left: -20px;
+  background-color: darkred;
+  color: white;
+  border: 1px black solid;
+  padding: 3px 5px;
+  border-radius: 50%;
+}

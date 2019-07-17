@@ -5,11 +5,9 @@ import API from '../../utils/API';
 
 class CreateGame extends Component {
   state = {
-    numberOfQuestions: 0,
-    questions: [],
-    correct: [],
     title: "",
-    category: ""
+    category: "",
+    gameObj: {}
   }
 
   sendToLogin = () => {
@@ -21,15 +19,7 @@ class CreateGame extends Component {
   }
 
   addQuestion = () => {
-    // Need to add in ways to remove questions that have been added;
-    // Add button to new question div
-    // give button value of noQs when created
-
-    // Might need to rethink how we are doing this whole thing
-    // Look into accessing the siblings in a div to tranfer information?
-
     const questionCreateArea = document.getElementById("questionCreateArea");
-    const noQs = this.state.numberOfQuestions;
 
     const newQuestion = document.createElement("div");
     newQuestion.className = "newQuestion"
@@ -39,17 +29,23 @@ class CreateGame extends Component {
     newQuestion.dataset.answer2 = "empty";
     newQuestion.dataset.answer3 = "empty";
     newQuestion.dataset.correct = "empty";
+
+    const delBtn = document.createElement("button");
+    delBtn.className = "delBtn";
+    delBtn.addEventListener("click", function() {
+      console.log(this.parentElement);
+      this.parentElement.className = "deleteQuestion";
+    })
+    delBtn.textContent = "X";
+
     const question = document.createElement("input");
     question.type = "text";
     question.name = "question";
     question.autocomplete = "off"
     question.className = "topInput questionInput"
-    question.dataset.which_question = noQs;
-    question.placeholder = `Question ${noQs + 1}`
-    question.id = `question${noQs}`
+    question.placeholder = `Question`
     question.dataset.holder = "question"
-    question.addEventListener("keyup", function(){
-      console.log(this.parentElement)
+    question.addEventListener("keyup", function() {
       this.parentElement.dataset.question = this.value
     })
 
@@ -73,31 +69,36 @@ class CreateGame extends Component {
     const answerInputs = [answer1Input, answer2Input, answer3Input, answer4Input];
 
     answerButtons.forEach((button, i) => {
-      button.className = "answerbutton";
-      button.textContent = "X"
-      button.dataset.which_answer = `answer${i}question${noQs}`;
+      button.className = "answerButton";
+      button.textContent = "O"
       button.dataset.holder = `answer${i}`
       button.addEventListener("click", function() {
         console.log(this.parentElement.parentElement.parentElement.dataset.correct)
         this.parentElement.parentElement.parentElement.dataset.correct =
-        this.parentElement.parentElement.parentElement.dataset[this.dataset.holder]
-        // Add classnames to differentiate clicked/unclicked
+          this.parentElement.parentElement.parentElement.dataset[this.dataset.holder]
+        answerButtons.forEach(one => {
+          one.className = "answerButton";
+          one.textContent = "O"
+        });
+        this.classList = "answerButton clicked"
+        this.textContent = "X"
       })
     })
 
     answerInputs.forEach((one, i) => {
       one.type = "text";
       one.placeholder = `Answer ${i + 1}`;
-      one.classList = `answer forQuestion${noQs}`;
-      one.id = `answer${i}question${noQs}`;
+      one.classList = `answer`;
       one.autocomplete = "off";
-      one.dataset.correct_answer = "false";
       one.dataset.holder = `answer${i}`
       one.addEventListener("keyup", function() {
         const holder = this.dataset.holder;
         const datasets = this.parentElement.parentElement.parentElement.dataset[holder] = this.value;
         console.log(datasets)
-        // Remove clicked class from buttons, the dataset needs to be updated
+        answerButtons.forEach(one => {
+          one.className = "answerButton";
+          one.textContent = "O"
+        })
       })
     })
 
@@ -107,60 +108,44 @@ class CreateGame extends Component {
     answer4.append(answer4Button, answer4Input);
 
     answerBox.append(answer1, answer2, answer3, answer4)
-    newQuestion.append(question, answerBox);
+    newQuestion.append(delBtn, question, answerBox);
     questionCreateArea.append(newQuestion);
-
-    console.log(noQs);
-    this.setState({ numberOfQuestions: this.state.numberOfQuestions + 1 })
   }
 
   grabQuiz = () => {
-    const noQs = this.state.numberOfQuestions;
     let gameQuestions = [];
     let correctAnswers = [];
-    const findAnswers = [].slice.call(document.querySelectorAll(".answer"))
-    const totalRight = findAnswers.filter(answer => answer.dataset.correct_answer === "true");
-    console.log(totalRight.length);
+    const allQuestions = [].slice.call(document.querySelectorAll(".newQuestion"));
+    allQuestions.forEach((question, i) => {
+      gameQuestions.push({
+        question: question.dataset.question,
+        answers: [question.dataset.answer0, question.dataset.answer1, question.dataset.answer2, question.dataset.answer3],
+      })
+      correctAnswers.push(question.dataset.correct)
+    })
 
-    if (totalRight.lenth < noQs) {
-      return alert("have not marked all the correct answers in the questions")
+    console.log(gameQuestions)
+    console.log(correctAnswers);
+
+    const sendObj = {
+      title: this.state.title,
+      category: this.state.category,
+      questions: gameQuestions,
+      correct: correctAnswers
     }
 
-    for (let i = 0; i < noQs; i++) {
-
-      const answers = [].slice.call(document.querySelectorAll(".forQuestion" + i));
-      const rightAnswer = answers.filter(eachAnswer => eachAnswer.dataset.correct_answer === "true");
-      if (rightAnswer.length === 0) {
-        return alert(`Question ${i + 1} is missing a correct answer`)
-      }
-      console.log(rightAnswer)
-      gameQuestions[i] = {
-        question: document.getElementById(`question${i}`).value,
-        answers: [
-          document.getElementById(`answer0question${i}`).value,
-          document.getElementById(`answer1question${i}`).value,
-          document.getElementById(`answer2question${i}`).value,
-          document.getElementById(`answer3question${i}`).value,
-        ]
-      };
-      correctAnswers[i] = rightAnswer[0].value;
-    }
-    console.log(gameQuestions);
-    console.log(correctAnswers)
-    this.setState((prevState) => {
-      prevState.questions = gameQuestions;
-      prevState.correct = correctAnswers;
+    console.log(sendObj)
+    this.setState(prevState => {
+      prevState.gameObj = sendObj;
       return prevState;
     }, () => {
-      console.log("This is in the callback for set state");
-      // this.sumbitGame();
+      console.log("prevstate callback");
+      this.sumbitGame();
     })
-    // This all needs to be reset
-
   }
 
   sumbitGame = () => {
-    API.createNewGame(this.state.title, this.state.category, this.state.questions, this.state.correct)
+    API.createNewGame(this.state.gameObj)
       .then(result => {
         console.log(result)
       })
@@ -208,8 +193,8 @@ class CreateGame extends Component {
           </select>
         </div>
         <hr />
-        <button className="addQBtn" onClick={this.addQuestion}>Add Question</button>
         <div id="questionCreateArea"></div>
+        <button className="addQBtn" onClick={this.addQuestion}>Add Question</button>
         <button className="submitBtn" onClick={this.grabQuiz}>Submit Quiz</button>
       </div>
     );
