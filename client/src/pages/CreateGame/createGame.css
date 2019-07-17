@@ -1,4 +1,40 @@
-.answerBox{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+.inputGroup{
+  width: 80%;
+  margin: 10px auto;
+}
+
+.inputGroup label{
+  margin-right: 10px;
+}
+
+.topInput{
+  padding: 5px;
+  width: 70%;
+  font-size: 16px;
+}
+
+.newQuestion{
+  width: 80%;
+  margin: auto;
+}
+
+.questionInput{
+  margin: 10px 0;
+}
+
+.answer{
+  padding: 5px;
+  font-size: 14px;
+  width: fit-content;
+}
+
+.addQBtn, .submitBtn{
+  width: 80%;
+  margin: 10px auto;
+  display: block;
+  padding: 5px 10px;
+  font-size: 18px;
+  border: 1px black solid;
+  background-color: rgb(2, 63, 60);
+  color: white;
 }

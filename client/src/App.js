@@ -20,7 +20,8 @@ class App extends Component {
     password: "",
     id: "",
     signup: false,
-    gameSelectID: ""
+    gameSelectID: "",
+    sendHome: false
   }
 
   componentDidMount() {
@@ -29,7 +30,13 @@ class App extends Component {
 
   logoutUser = () => {
     localStorage.removeItem("token");
-    this.setState({ user: false, username: "", id: "", password: "", email: "" })
+    this.setState({ user: false, username: "", id: "", password: "", email: "", sendHome: true });
+  }
+
+  resetSendHome = () => {
+    if (this.state.sendHome) {
+      this.setState({ sendHome: false })
+    }
   }
 
   loginUser = () => {
@@ -102,7 +109,12 @@ class App extends Component {
         <div className="background">
           <Header user={this.state.user} logoutUser={this.logoutUser} />
           <Switch>
-            <Route path="/" exact render={props => <Home user={this.state.user} logoutUser={this.logoutUser} />} />
+            <Route path="/" exact render={props => <Home
+              user={this.state.user}
+              logoutUser={this.logoutUser}
+              sendHome={this.state.sendHome}
+              resetSendHome={this.resetSendHome}
+            />} />
             <Route path="/login" exact render={props => <Login
               user={this.state.user}
               renderRedirect={this.renderRedirect}
@@ -120,6 +132,7 @@ class App extends Component {
               user={this.state.user}
               gameSelectID={this.state.gameSelectID}
               handleGameSelect={this.handleGameSelect}
+              sendHome={this.state.sendHome}
             />} />
             <Route path="/playgame" exact render={props => <Game gameSelectID={this.state.gameSelectID} />} />
             <Route path="/creategame" exact render={props => <CreateGame user={this.state.user} username={this.state.username} />} />

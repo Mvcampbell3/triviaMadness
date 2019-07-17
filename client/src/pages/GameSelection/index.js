@@ -44,10 +44,17 @@ class GameSelection extends Component {
     }
   }
 
+  redirectHome = () => {
+    if(this.props.sendHome === true) {
+      return <Redirect to="/" />
+    }
+  }
+
   render() {
     return (
       <div className="container">
         {this.redirectLogin()}
+        {this.redirectHome()}
         <h1>This is the Games Page</h1>
         {this.state.gamesLatest.map(game => <div key={game._id}>
           <Link to="/playgame" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
