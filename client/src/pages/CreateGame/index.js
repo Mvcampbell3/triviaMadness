@@ -167,8 +167,8 @@ class CreateGame extends Component {
     return (
       <div className="container">
         {this.sendToLogin()}
-        <h1>Game Create</h1>
-        <h4>Enter in the informaiton you want to make your game about</h4>
+        <h1 className="text-center">Game Create</h1>
+        <h4 className="text-center">Enter in the informaiton you want to make your game about</h4>
         <div className="inputGroup">
           <label>Title of the Quiz</label>
           <input

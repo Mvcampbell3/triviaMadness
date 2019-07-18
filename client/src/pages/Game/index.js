@@ -30,10 +30,16 @@ class Game extends Component {
       .catch(err => console.log(err))
   }
 
-  handleAnswer = (i, answer) => {
-    console.log(i, answer);
+  handleAnswer = e => {
+
+    const whichClass = e.target.dataset.which;
+    const answerBtnsQ = [].slice.call(document.querySelectorAll(".forQuestion" + whichClass));
+    answerBtnsQ.forEach(one => one.classList.remove("clicked"));
+    e.target.classList.add("clicked");
+    const answer = e.target.dataset.answer;
+
     this.setState((prevState) => {
-      prevState.userAnswers[i] = answer;
+      prevState.userAnswers[whichClass] = answer;
       return prevState;
     })
   }
@@ -53,13 +59,22 @@ class Game extends Component {
   render() {
     return (
       <div className="container">
+        <h1 className="text-center">Play Game Area</h1>
         {this.state.loaded ? <div>
-          <h1>{this.state.game.title}</h1>
-          {this.state.game.questions.map((question, i )=> <div key={i}>
-            <h2>{question.question}</h2>
-              {question.answers.map((answer, indexAnswers)=> <div key={indexAnswers}>
-                <button onClick={e => this.handleAnswer(i, answer)} data-which={i} data-answer={answer}>{answer}</button>
-              </div>)}
+          <h3 className="text-center">Quiz Title: {this.state.game.title}</h3>
+          <h3 className="text-center">Category: {this.state.game.category}</h3>
+          {this.state.game.questions.map((question, i) => <div key={i}>
+            <h3>{i + 1} {question.question}</h3>
+            {question.answers.map((answer, indexAnswers) => <div key={indexAnswers}>
+              <button
+                className={`answerBtn forQuestion${i}`}
+                onClick={e => this.handleAnswer(e)}
+                data-which={i}
+                data-answer={answer}
+              >
+                {answer}
+              </button>
+            </div>)}
           </div>)}
           <hr />
           <button onClick={this.submitAnswers}>Submit</button>
