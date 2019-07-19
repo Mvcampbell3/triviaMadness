@@ -10,8 +10,6 @@ import GameSelection from "./pages/GameSelection";
 import Game from "./pages/Game"
 import CreateGame from "./pages/CreateGame"
 
-import Header from "./components/Header"
-
 class App extends Component {
   state = {
     user: null,
@@ -143,7 +141,6 @@ class App extends Component {
             <Route path="/creategame" exact render={props => <CreateGame
               user={this.state.user}
               username={this.state.username}
-              user={this.state.user}
               logoutUser={this.logoutUser}
             />} />
             <Route component={Lost} />
