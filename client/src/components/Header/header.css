@@ -1,9 +1,11 @@
 header{
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 10px 10px;
   background-color: #eee;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 nav ul{

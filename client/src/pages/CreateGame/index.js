@@ -3,6 +3,8 @@ import { Redirect } from "react-router-dom"
 import "./createGame.css";
 import API from '../../utils/API';
 
+import Header from "../../components/Header"
+
 class CreateGame extends Component {
   state = {
     title: "",
@@ -166,36 +168,39 @@ class CreateGame extends Component {
   render() {
     return (
       <div className="container">
-        {this.sendToLogin()}
-        <h1 className="text-center">Game Create</h1>
-        <h4 className="text-center">Enter in the informaiton you want to make your game about</h4>
-        <div className="inputGroup">
-          <label>Title of the Quiz</label>
-          <input
-            value={this.state.title}
-            type="text"
-            name="title"
-            placeholder="Quiz Title..."
-            onChange={e => this.handleInput(e)}
-            autoComplete="off"
-            className="topInput"
-          />
+        <Header user={this.props.user} logoutUser={this.props.logoutUser} />
+        <div className="wrapper">
+          {this.sendToLogin()}
+          <h1 className="text-center">Game Create</h1>
+          <h4 className="text-center">Enter in the informaiton you want to make your game about</h4>
+          <div className="inputGroup">
+            <label>Title of the Quiz</label>
+            <input
+              value={this.state.title}
+              type="text"
+              name="title"
+              placeholder="Quiz Title..."
+              onChange={e => this.handleInput(e)}
+              autoComplete="off"
+              className="topInput"
+            />
+          </div>
+          <div className="inputGroup">
+            <label>Category of the Quiz</label>
+            <select id="category" onChange={this.changeSelect}>
+              <option value="did not select">Pick Category:</option>
+              <option value="History">History</option>
+              <option value="Movies and TV">Movies and TV</option>
+              <option value="Science">Science</option>
+              <option value="Music">Music</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <hr />
+          <div id="questionCreateArea"></div>
+          <button className="addQBtn" onClick={this.addQuestion}>Add Question</button>
+          <button className="submitBtn" onClick={this.grabQuiz}>Submit Quiz</button>
         </div>
-        <div className="inputGroup">
-          <label>Category of the Quiz</label>
-          <select id="category" onChange={this.changeSelect}>
-            <option value="did not select">Pick Category:</option>
-            <option value="History">History</option>
-            <option value="Movies and TV">Movies and TV</option>
-            <option value="Science">Science</option>
-            <option value="Music">Music</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <hr />
-        <div id="questionCreateArea"></div>
-        <button className="addQBtn" onClick={this.addQuestion}>Add Question</button>
-        <button className="submitBtn" onClick={this.grabQuiz}>Submit Quiz</button>
       </div>
     );
   }

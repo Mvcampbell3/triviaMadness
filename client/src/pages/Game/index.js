@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import "./game.css";
-
+import { Redirect } from "react-router-dom";
 import API from "../../utils/API";
+
+import Header from "../../components/Header"
 
 class Game extends Component {
   state = {
@@ -12,6 +14,12 @@ class Game extends Component {
 
   componentDidMount() {
     this.getGame()
+  }
+
+  redirectHome = () => {
+    if (!this.props.user){
+      return <Redirect to="/" />
+    }
   }
 
   getGame = () => {
@@ -59,26 +67,30 @@ class Game extends Component {
   render() {
     return (
       <div className="container">
-        <h1 className="text-center">Play Game Area</h1>
-        {this.state.loaded ? <div>
-          <h3 className="text-center">Quiz Title: {this.state.game.title}</h3>
-          <h3 className="text-center">Category: {this.state.game.category}</h3>
-          {this.state.game.questions.map((question, i) => <div key={i}>
-            <h3>{i + 1} {question.question}</h3>
-            {question.answers.map((answer, indexAnswers) => <div key={indexAnswers}>
-              <button
-                className={`answerBtn forQuestion${i}`}
-                onClick={e => this.handleAnswer(e)}
-                data-which={i}
-                data-answer={answer}
-              >
-                {answer}
-              </button>
+        {this.redirectHome()}
+        <Header user={this.props.user} logoutUser={this.props.logoutUser} />
+        <div className="wrapper">
+          <h1 className="text-center">Play Game Area</h1>
+          {this.state.loaded ? <div>
+            <h3 className="text-center">Quiz Title: {this.state.game.title}</h3>
+            <h3 className="text-center">Category: {this.state.game.category}</h3>
+            {this.state.game.questions.map((question, i) => <div key={i}>
+              <h3>{i + 1} {question.question}</h3>
+              {question.answers.map((answer, indexAnswers) => <div key={indexAnswers}>
+                <button
+                  className={`answerBtn forQuestion${i}`}
+                  onClick={e => this.handleAnswer(e)}
+                  data-which={i}
+                  data-answer={answer}
+                >
+                  {answer}
+                </button>
+              </div>)}
             </div>)}
-          </div>)}
-          <hr />
-          <button onClick={this.submitAnswers}>Submit</button>
-        </div> : null}
+            <hr />
+            <button onClick={this.submitAnswers}>Submit</button>
+          </div> : null}
+        </div>
       </div>
     );
   }

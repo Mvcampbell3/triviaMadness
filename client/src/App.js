@@ -107,7 +107,6 @@ class App extends Component {
     return (
       <Router>
         <div className="background">
-          <Header user={this.state.user} logoutUser={this.logoutUser} />
           <Switch>
             <Route path="/" exact render={props => <Home
               user={this.state.user}
@@ -117,6 +116,7 @@ class App extends Component {
             />} />
             <Route path="/login" exact render={props => <Login
               user={this.state.user}
+              logoutUser={this.logoutUser}
               renderRedirect={this.renderRedirect}
               email={this.state.email}
               password={this.state.password}
@@ -130,12 +130,22 @@ class App extends Component {
             <Route path="/games" exact render={props => <GameSelection
               renderRedirectLogin={this.renderRedirectLogin}
               user={this.state.user}
+              logoutUser={this.logoutUser}
               gameSelectID={this.state.gameSelectID}
               handleGameSelect={this.handleGameSelect}
               sendHome={this.state.sendHome}
             />} />
-            <Route path="/playgame" exact render={props => <Game gameSelectID={this.state.gameSelectID} />} />
-            <Route path="/creategame" exact render={props => <CreateGame user={this.state.user} username={this.state.username} />} />
+            <Route path="/playgame" exact render={props => <Game
+              user={this.state.user}
+              logoutUser={this.logoutUser}
+              gameSelectID={this.state.gameSelectID}
+            />} />
+            <Route path="/creategame" exact render={props => <CreateGame
+              user={this.state.user}
+              username={this.state.username}
+              user={this.state.user}
+              logoutUser={this.logoutUser}
+            />} />
             <Route component={Lost} />
           </Switch>
         </div>
