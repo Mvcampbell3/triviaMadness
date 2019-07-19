@@ -11,6 +11,12 @@ class GameSelection extends Component {
     userID: "",
     username: "",
     user: "",
+    historyGames: [],
+    moviesAndTVGames: [],
+    musicGames: [],
+    scienceGames: [],
+    otherGames: [],
+    loaded: false
   }
 
   componentDidMount() {
@@ -21,7 +27,18 @@ class GameSelection extends Component {
     API.getAllGames()
       .then(result => {
         console.log(result)
-        this.setState({ gamesLatest: result.data })
+        this.setState(prevState => {
+          prevState.gamesLatest = result.data;
+          prevState.historyGames = result.data.filter(game => game.category === "History");
+          prevState.moviesAndTVGames = result.data.filter(game => game.category === "Movies and TV");
+          prevState.musicGames = result.data.filter(game => game.category === "Music");
+          prevState.scienceGames = result.data.filter(game => game.category === "Science");
+          prevState.otherGames = result.data.filter(game => game.category === "Other");
+          return prevState;
+        }, () => {
+          console.log(this.state);
+          this.setState({ loaded: true })
+        })
       })
       .catch(err => {
         console.log(err)
@@ -60,9 +77,34 @@ class GameSelection extends Component {
           {this.redirectLogin()}
           {this.redirectHome()}
           <h1>This is the Games Page</h1>
-          {this.state.gamesLatest.map(game => <div key={game._id}>
+          {this.state.loaded ? <div>
+            <h3>History Games</h3>
+            {this.state.historyGames.map(game => <div key={game._id}>
+              <Link to="/playgame" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
+            </div>)}
+            <h3>Movie and TV Games</h3>
+            {this.state.moviesAndTVGames.map(game => <div key={game._id}>
+              <Link to="/playgame" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
+            </div>)}
+            <h3>Music Games</h3>
+            {this.state.musicGames.map(game => <div key={game._id}>
+              <Link to="/playgame" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
+            </div>)}
+            <h3>Science Games</h3>
+            {this.state.scienceGames.map(game => <div key={game._id}>
+              <Link to="/playgame" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
+            </div>)}
+            <h3>Other Games</h3>
+            {this.state.otherGames.map(game => <div key={game._id}>
+              <Link to="/playgame" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
+            </div>)}
+          </div> : null}
+
+
+          {/* {this.state.gamesLatest.map(game => <div key={game._id}>
             <Link to="/playgame" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
-          </div>)}
+          </div>)} */}
+
         </div>
       </div>
     );
