@@ -1,0 +1,39 @@
+.gameLink{
+  color: black;
+  display: block;
+  width: fit-content;
+  min-width: 200px;
+  text-align: center;
+  margin: 3px auto;
+  font-size: 18px;
+  transition: all, .25s;
+}
+
+.gameLink:hover{
+  background-color: rgb(2, 63, 60);
+  color: white;
+  transform: scale(.95);
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all, .25s;
+}
+
+.gamesHolder{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  align-items:start;
+}
+
+.gameDiv{
+  width: 100%;
+  margin: 0 auto;
+}
+
+.gameDiv h3{
+  border-top: .5px black solid;
+  border-bottom: .5px black solid;
+  margin-bottom: 5px;
+  background-color: rgb(2, 63, 60);
+  color: white;
+}
