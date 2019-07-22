@@ -29,7 +29,7 @@ class Game extends Component {
 
   redirectResultPage = () => {
     if (this.state.sendResultPage){
-      return <Redirect to="/" />
+      return <Redirect to="/resultpage" />
     }
   }
 
@@ -70,7 +70,6 @@ class Game extends Component {
         console.log(result)
         this.props.handleGameResult(result.data, this.state.title, () => {
           this.setState({sendResultPage: true})
-          console.log("worked")
         });
       })
       .catch(err => {

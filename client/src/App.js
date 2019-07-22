@@ -9,6 +9,7 @@ import Login from "./pages/Login"
 import GameSelection from "./pages/GameSelection";
 import Game from "./pages/Game"
 import CreateGame from "./pages/CreateGame"
+import ResultPage from "./pages/ResultPage"
 
 class App extends Component {
   state = {
@@ -99,12 +100,18 @@ class App extends Component {
     }
   }
 
+  resultToHome = () => {
+    if (!this.state.gameResult.username) {
+      return <Redirect to="/" />
+    }
+  }
+
   handleGameSelect = e => {
     this.setState({ gameSelectID: e.target.dataset.game_id })
   }
 
   handleGameResult = (result, title, cb) => {
-    this.setState({gameResult: result, quizTitle: title});
+    this.setState({ gameResult: result, quizTitle: title });
     cb();
   }
 
@@ -150,6 +157,13 @@ class App extends Component {
               user={this.state.user}
               username={this.state.username}
               logoutUser={this.logoutUser}
+            />} />
+            <Route path="/resultpage" exact render={props => <ResultPage
+              user={this.state.user}
+              logoutUser={this.logoutUser}
+              gameResult={this.state.gameResult}
+              resultToHome={this.resultToHome}
+              title={this.state.quizTitle}
             />} />
             <Route component={Lost} />
           </Switch>
