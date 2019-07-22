@@ -12,7 +12,9 @@ class Game extends Component {
     game: {},
     userAnswers: [],
     styleList: true,
-    start: false
+    start: false,
+    title: "",
+    sendResultPage: false
   }
 
   componentDidMount() {
@@ -21,6 +23,12 @@ class Game extends Component {
 
   redirectHome = () => {
     if (!this.props.user) {
+      return <Redirect to="/" />
+    }
+  }
+
+  redirectResultPage = () => {
+    if (this.state.sendResultPage){
       return <Redirect to="/" />
     }
   }
@@ -36,7 +44,7 @@ class Game extends Component {
           placeholderArray.push("");
         }
         console.log(placeholderArray)
-        this.setState({ game: result.data, loaded: true, userAnswers: placeholderArray })
+        this.setState({ game: result.data, loaded: true, userAnswers: placeholderArray, title: result.data.title })
       })
       .catch(err => console.log(err))
   }
@@ -60,6 +68,10 @@ class Game extends Component {
     API.gradeGame(this.props.gameSelectID, this.state.userAnswers)
       .then(result => {
         console.log(result)
+        this.props.handleGameResult(result.data, this.state.title, () => {
+          this.setState({sendResultPage: true})
+          console.log("worked")
+        });
       })
       .catch(err => {
         console.log(err)
@@ -110,11 +122,11 @@ class Game extends Component {
     return (
       <div className="container">
         {this.redirectHome()}
+        {this.redirectResultPage()}
         <Header user={this.props.user} logoutUser={this.props.logoutUser} />
         <div className="wrapper">
-          <h1 className="text-center">Play Game Area</h1>
           {this.state.loaded ? <div>
-            <h3 className="text-center">Quiz Title: {this.state.game.title}</h3>
+            <h2 className="text-center">Quiz Title: {this.state.game.title}</h2>
             <h3 className="text-center">Category: {this.state.game.category}</h3>
             <h3 className="text-center">Time Limit: 30 seconds per question</h3>
             {this.state.start ? null :
@@ -125,7 +137,6 @@ class Game extends Component {
                     <div className={this.state.styleList ? "switchButton leftSwitchButton" : "switchButton rightSwitchButton"}></div>
                   </div>
                   <h4 className={this.state.styleList ? "styleText" : "styleText activeStyle"}>One Question at a Time</h4>
-
                 </div>
                 <button className="beginBtn" onClick={this.startQuiz}>Begin Quiz</button>
               </div>

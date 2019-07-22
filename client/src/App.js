@@ -19,7 +19,9 @@ class App extends Component {
     id: "",
     signup: false,
     gameSelectID: "",
-    sendHome: false
+    sendHome: false,
+    gameResult: {},
+    quizTitle: "",
   }
 
   componentDidMount() {
@@ -101,6 +103,11 @@ class App extends Component {
     this.setState({ gameSelectID: e.target.dataset.game_id })
   }
 
+  handleGameResult = (result, title, cb) => {
+    this.setState({gameResult: result, quizTitle: title});
+    cb();
+  }
+
   render() {
     return (
       <Router>
@@ -137,6 +144,7 @@ class App extends Component {
               user={this.state.user}
               logoutUser={this.logoutUser}
               gameSelectID={this.state.gameSelectID}
+              handleGameResult={this.handleGameResult}
             />} />
             <Route path="/creategame" exact render={props => <CreateGame
               user={this.state.user}
