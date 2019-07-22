@@ -10,6 +10,8 @@ class Game extends Component {
     loaded: false,
     game: {},
     userAnswers: [],
+    styleList: true,
+    start: false
   }
 
   componentDidMount() {
@@ -17,7 +19,7 @@ class Game extends Component {
   }
 
   redirectHome = () => {
-    if (!this.props.user){
+    if (!this.props.user) {
       return <Redirect to="/" />
     }
   }
@@ -62,6 +64,14 @@ class Game extends Component {
       })
   }
 
+  switchListHandle = () => {
+    this.setState({ styleList: !this.state.styleList })
+  }
+
+  startQuiz = () => {
+    this.setState({ start: true })
+  }
+
 
   // Need to turn questions map into component
   render() {
@@ -74,22 +84,44 @@ class Game extends Component {
           {this.state.loaded ? <div>
             <h3 className="text-center">Quiz Title: {this.state.game.title}</h3>
             <h3 className="text-center">Category: {this.state.game.category}</h3>
-            {this.state.game.questions.map((question, i) => <div key={i}>
-              <h3>{i + 1} {question.question}</h3>
-              {question.answers.map((answer, indexAnswers) => <div key={indexAnswers}>
-                <button
-                  className={`answerBtn forQuestion${i}`}
-                  onClick={e => this.handleAnswer(e)}
-                  data-which={i}
-                  data-answer={answer}
-                >
-                  {answer}
-                </button>
+            <h3 className="text-center">Time Limit: 30s per question</h3>
+            {this.state.start ? null :
+              <div className="beforeQuiz">
+                <div className="styleGame">
+                  <h4 className={this.state.styleList ? "styleText activeStyle" : "styleText"}>Full Quiz at Once</h4>
+                  <div className="switchHolder">
+                    <div className={this.state.styleList ? "switchButton leftSwitchButton" : "switchButton rightSwitchButton"} onClick={this.switchListHandle}></div>
+                  </div>
+                  <h4 className={this.state.styleList ? "styleText" : "styleText activeStyle"}>One Question at a Time</h4>
+
+                </div>
+                <button className="beginBtn" onClick={this.startQuiz}>Begin Quiz</button>
+              </div>
+            }
+            {/* Need to map based on what kind of quiz the user selects */}
+            {/* More ternaries and and in components to handle questions for the quiz */}
+            
+            {this.state.start ? <div>
+              {this.state.game.questions.map((question, i) => <div key={i}>
+                <h3>{i + 1} {question.question}</h3>
+                {question.answers.map((answer, indexAnswers) => <div key={indexAnswers}>
+                  <button
+                    className={`answerBtn forQuestion${i}`}
+                    onClick={e => this.handleAnswer(e)}
+                    data-which={i}
+                    data-answer={answer}
+                  >
+                    {answer}
+                  </button>
+                </div>)}
               </div>)}
-            </div>)}
-            <hr />
-            <button onClick={this.submitAnswers}>Submit</button>
-          </div> : null}
+              <button onClick={this.submitAnswers}>Submit</button>
+            </div> : null}
+
+          </div>
+
+
+            : null}
         </div>
       </div>
     );
