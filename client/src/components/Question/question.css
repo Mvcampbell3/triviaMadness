@@ -1,0 +1,32 @@
+.questionBlock{
+  border: .5px black solid;
+  padding: 15px;
+  width: 80%;
+  min-width: 300px;
+  margin: 2em auto;
+  box-shadow: 3px 3px 3px black;
+  background-color: #ccc;
+}
+
+.answerBlock{
+  width: 100%;
+  display: flex;
+  margin-top: .5em;
+  justify-content: space-between;
+}
+
+.answerBtn{
+  padding: 3px 5px;
+  border: 1px black solid;
+  border-radius: 15px;
+  background-color: white;
+}
+
+.answerBtn:focus{
+  outline: none;
+}
+
+.clickedAnswer{
+  color: white;
+  background-color: rgb(2, 63, 60);
+}

@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import API from "../../utils/API";
 
 import Header from "../../components/Header"
+import Question from "../../components/Question"
 
 class Game extends Component {
   state = {
@@ -41,16 +42,17 @@ class Game extends Component {
   }
 
   handleAnswer = e => {
-
     const whichClass = e.target.dataset.which;
     const answerBtnsQ = [].slice.call(document.querySelectorAll(".forQuestion" + whichClass));
-    answerBtnsQ.forEach(one => one.classList.remove("clicked"));
-    e.target.classList.add("clicked");
+    answerBtnsQ.forEach(one => one.classList.remove("clickedAnswer"));
+    e.target.classList.add("clickedAnswer");
     const answer = e.target.dataset.answer;
 
     this.setState((prevState) => {
       prevState.userAnswers[whichClass] = answer;
       return prevState;
+    }, () => {
+      console.log(this.state.userAnswers)
     })
   }
 
@@ -72,8 +74,38 @@ class Game extends Component {
     this.setState({ start: true })
   }
 
+  displayQuestions = () => {
+    if (this.state.styleList) {
+      return this.listStyle();
+    }
+    return this.oneQStyle()
+  }
 
-  // Need to turn questions map into component
+  listStyle = () => {
+    return (
+      <div className="check">
+        {this.state.game.questions.map((question, i) =>
+          <Question
+            key={"Question" + i}
+            question={question.question}
+            answers={question.answers}
+            iQues={i}
+            handleAnswer={this.handleAnswer}
+          />
+        )}
+        <button className="subBtn" onClick={this.submitAnswers}>Submit Answers</button>
+      </div>
+    )
+  }
+
+  oneQStyle = () => {
+    return (
+      <div className="check">
+        This is the Question by question style
+      </div>
+    )
+  }
+
   render() {
     return (
       <div className="container">
@@ -84,13 +116,13 @@ class Game extends Component {
           {this.state.loaded ? <div>
             <h3 className="text-center">Quiz Title: {this.state.game.title}</h3>
             <h3 className="text-center">Category: {this.state.game.category}</h3>
-            <h3 className="text-center">Time Limit: 30s per question</h3>
+            <h3 className="text-center">Time Limit: 30 seconds per question</h3>
             {this.state.start ? null :
               <div className="beforeQuiz">
                 <div className="styleGame">
                   <h4 className={this.state.styleList ? "styleText activeStyle" : "styleText"}>Full Quiz at Once</h4>
-                  <div className="switchHolder">
-                    <div className={this.state.styleList ? "switchButton leftSwitchButton" : "switchButton rightSwitchButton"} onClick={this.switchListHandle}></div>
+                  <div className="switchHolder" onClick={this.switchListHandle}>
+                    <div className={this.state.styleList ? "switchButton leftSwitchButton" : "switchButton rightSwitchButton"}></div>
                   </div>
                   <h4 className={this.state.styleList ? "styleText" : "styleText activeStyle"}>One Question at a Time</h4>
 
@@ -100,23 +132,8 @@ class Game extends Component {
             }
             {/* Need to map based on what kind of quiz the user selects */}
             {/* More ternaries and and in components to handle questions for the quiz */}
-            
-            {this.state.start ? <div>
-              {this.state.game.questions.map((question, i) => <div key={i}>
-                <h3>{i + 1} {question.question}</h3>
-                {question.answers.map((answer, indexAnswers) => <div key={indexAnswers}>
-                  <button
-                    className={`answerBtn forQuestion${i}`}
-                    onClick={e => this.handleAnswer(e)}
-                    data-which={i}
-                    data-answer={answer}
-                  >
-                    {answer}
-                  </button>
-                </div>)}
-              </div>)}
-              <button onClick={this.submitAnswers}>Submit</button>
-            </div> : null}
+
+            {this.state.start ? this.displayQuestions() : null}
 
           </div>
 

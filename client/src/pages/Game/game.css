@@ -4,24 +4,23 @@
   border: 2px black solid;
   background-color: lightgray;
   border-radius: 20px;
+  cursor: pointer;
 }
 
 .switchButton{
   width: 19px;
   height: 19px;
   border-radius: 20px;
-  cursor: pointer;
+  background-color: rgb(2, 63, 60);
 }
 
 .leftSwitchButton{
   transform: translate(1px, 1px); 
-  background-color: green;
   transition: all, .35s;
 }
 
 .rightSwitchButton{
   transform: translate(26px, 1px);
-  background-color: red;
   transition: all, .35s;
 }
 
