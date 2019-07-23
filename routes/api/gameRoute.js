@@ -80,25 +80,31 @@ router.post("/gradegame/:id", checkAuth, (req, res, next) => {
   db.Game.findById(req.params.id)
     .then(game => {
       const correct = game.correct;
+      const questions = game.questions;
       const userAnswers = req.body.userAnswers;
       let rightAnswers = 0;
       let wrongAnswers = 0;
       let graded = []
+      let rightWrongArr = [];
       for (let i = 0; i < correct.length; i++) {
 
-        graded[i] = {correct: correct[i], userAnswer: userAnswers[i]}
+        graded[i] = { correct: correct[i], userAnswer: userAnswers[i] }
 
         if (correct[i] === userAnswers[i]) {
           rightAnswers = rightAnswers + 1;
+          rightWrongArr.push(true);
         } else {
           wrongAnswers = wrongAnswers + 1;
+          rightWrongArr.push(false)
         }
       }
-      const score = ((rightAnswers/correct.length).toFixed(2) * 100) + "%"
+      const score = ((rightAnswers / correct.length).toFixed(2) * 100) + "%"
       res.status(200).json({
-        right:rightAnswers, 
-        wrong: wrongAnswers, 
-        graded: graded, 
+        questions: questions,
+        rightWrongArr: rightWrongArr,
+        right: rightAnswers,
+        wrong: wrongAnswers,
+        graded: graded,
         score: score,
         gameID: req.params.id,
         userID: req.user.id,

@@ -1,0 +1,9 @@
+.userAnswer{
+  font-weight: 100;
+  font-size: 16px;
+  color: red;
+}
+
+.rightUserAnswer{
+  color: green;
+}
