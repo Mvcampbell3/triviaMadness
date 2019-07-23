@@ -6,6 +6,7 @@
   margin: 2em auto;
   box-shadow: 3px 3px 3px black;
   background-color: #ddd;
+  border-radius: 15px;
 }
 
 .answerBlock{
@@ -16,11 +17,12 @@
 }
 
 .answerBtn{
-  padding: 3px 5px;
+  padding: 3px 9px;
   border: 1px black solid;
   border-radius: 15px;
   background-color: white;
   font-size: 16px;
+  box-shadow: 2px 2px 2px black;
 }
 
 .answerBtn:focus{
@@ -30,4 +32,10 @@
 .clickedAnswer{
   color: white;
   background-color: rgb(2, 63, 60);
+  box-shadow: none;
+}
+
+.answerBtn:hover{
+  box-shadow: none;
+  transition: all, .25s;
 }
