@@ -112,7 +112,10 @@ class App extends Component {
 
   handleGameResult = (result, title, cb) => {
     this.setState({ gameResult: result, quizTitle: title });
-    cb();
+    this.setState(prevState => {
+      prevState.gameResult = result;
+      prevState.quizTitle = title
+    }, cb())
   }
 
   render() {
