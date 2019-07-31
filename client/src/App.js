@@ -23,6 +23,7 @@ class App extends Component {
     sendHome: false,
     gameResult: {},
     quizTitle: "",
+    failedLogin: false
   }
 
   componentDidMount() {
@@ -45,8 +46,14 @@ class App extends Component {
     API.loginUser(this.state.email, this.state.password)
       .then(result => {
         console.log(result.data);
-        this.setState({ user: true, username: result.data.username })
-        localStorage.setItem("token", result.data.token)
+        if (result.data !== false) {
+          this.setState({ user: true, username: result.data.username, failedLogin: false })
+          localStorage.setItem("token", result.data.token)
+        } else {
+          // alert("Wrong email or password");
+          this.setState({password: "", failedLogin: true})
+        }
+        
       })
       .catch(err => {
         console.log(err)
@@ -141,6 +148,7 @@ class App extends Component {
               handleInputChange={this.handleInputChange}
               loginUser={this.loginUser}
               signupUser={this.signupUser}
+              failedLogin={this.state.failedLogin}
             />} />
             <Route path="/games" exact render={props => <GameSelection
               renderRedirectLogin={this.renderRedirectLogin}
