@@ -57,6 +57,7 @@ class App extends Component {
       })
       .catch(err => {
         console.log(err)
+        this.setState({password: "", failedLogin: true})
       })
   }
 

@@ -9,6 +9,8 @@
 .downTown{
   height: 0px;
   overflow: hidden;
+  font-style: italic;
+  color: darkred;
   animation-name: downTown;
   animation-duration: .3s;
   animation-fill-mode: forwards
