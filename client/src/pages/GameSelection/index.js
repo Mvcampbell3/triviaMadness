@@ -4,6 +4,7 @@ import API from "../../utils/API"
 import { Redirect, Link } from "react-router-dom";
 
 import Header from "../../components/Header";
+import Loader from "../../components/Loader";
 
 class GameSelection extends Component {
   state = {
@@ -37,7 +38,13 @@ class GameSelection extends Component {
           return prevState;
         }, () => {
           console.log(this.state);
-          this.setState({ loaded: true })
+          // this.setState({ loaded: true })
+          console.log("loaded");
+          setTimeout(() => {
+            this.setState({ loaded: true });
+            console.log("timeout ran")
+            
+          }, 750)
         })
       })
       .catch(err => {
@@ -108,7 +115,7 @@ class GameSelection extends Component {
                 <Link to="/playgame" className="gameLink" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
               </div>)}
             </div>
-          </div> : null}
+          </div> : <Loader />}
         </div>
       </div>
     );

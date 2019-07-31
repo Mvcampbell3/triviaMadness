@@ -5,6 +5,7 @@ import API from "../../utils/API";
 
 import Header from "../../components/Header"
 import Question from "../../components/Question"
+// import Loader from "../../components/Loader"
 
 class Game extends Component {
   state = {
