@@ -9,12 +9,21 @@ class CreateGame extends Component {
   state = {
     title: "",
     category: "",
-    gameObj: {}
+    gameObj: {},
+    created: false
   }
 
   sendToLogin = () => {
     if (this.props.user === false) {
       return <Redirect to="/login" />
+    } else {
+      return
+    }
+  }
+
+  sendToGames = () => {
+    if (this.state.created === true) {
+      return <Redirect to="/games" />
     } else {
       return
     }
@@ -149,6 +158,12 @@ class CreateGame extends Component {
   sumbitGame = () => {
     API.createNewGame(this.state.gameObj)
       .then(result => {
+        if (result.data._id) {
+          this.setState(prevState => {
+            prevState.created = true;
+            return prevState
+          })
+        }
         console.log(result)
       })
       .catch(err => {
@@ -171,6 +186,7 @@ class CreateGame extends Component {
         <Header user={this.props.user} logoutUser={this.props.logoutUser} />
         <div className="wrapper">
           {this.sendToLogin()}
+          {this.sendToGames()}
           <h1 className="text-center">Game Create</h1>
           <h4 className="text-center">Enter in the informaiton you want to make your game about</h4>
           <div className="inputGroup">
