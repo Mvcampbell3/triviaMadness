@@ -3,9 +3,9 @@ import "./game.css";
 import { Redirect } from "react-router-dom";
 import API from "../../utils/API";
 
-import Header from "../../components/Header"
-import Question from "../../components/Question"
-// import Loader from "../../components/Loader"
+import Header from "../../components/Header";
+import Question from "../../components/Question";
+import FullQuizLoader from "../../components/FullQuizLoader";
 
 class Game extends Component {
   state = {
@@ -29,7 +29,7 @@ class Game extends Component {
   }
 
   redirectResultPage = () => {
-    if (this.state.sendResultPage){
+    if (this.state.sendResultPage) {
       return <Redirect to="/resultpage" />
     }
   }
@@ -44,7 +44,7 @@ class Game extends Component {
         for (let i = 0; i < numberOfQuestions; i++) {
           placeholderArray.push("");
         }
-        console.log(placeholderArray)
+        // console.log(placeholderArray)
         this.setState({ game: result.data, loaded: true, userAnswers: placeholderArray, title: result.data.title })
       })
       .catch(err => console.log(err))
@@ -70,7 +70,7 @@ class Game extends Component {
       .then(result => {
         console.log(result)
         this.props.handleGameResult(result.data, this.state.title, () => {
-          this.setState({sendResultPage: true})
+          this.setState({ sendResultPage: true })
         });
       })
       .catch(err => {
@@ -103,6 +103,7 @@ class Game extends Component {
             answers={question.answers}
             iQues={i}
             handleAnswer={this.handleAnswer}
+            styleList={this.state.styleList}
           />
         )}
         <button className="subBtn" onClick={this.submitAnswers}>Submit Answers</button>
@@ -111,10 +112,14 @@ class Game extends Component {
   }
 
   oneQStyle = () => {
+    console.log(this.state.game)
+    const questionList = this.state.game.questions;
+    console.log(questionList)
     return (
-      <div className="check">
-        This is the Question by question style
-      </div>
+      <FullQuizLoader
+        game={this.state.game}
+        styleList={this.state.styleList}
+      />
     )
   }
 

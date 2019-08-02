@@ -3,7 +3,7 @@ import "./question.css"
 
 const Question = (props) => {
   return (
-    <div className="questionBlock">
+    <div className={props.styleList ? "questionList" : "questionBlock"}>
       <h3 className="questionQ">{props.iQues + 1}. {props.question}</h3>
       <div className="answerBlock">
         {props.answers.map((answer, indexAnswers) =>
