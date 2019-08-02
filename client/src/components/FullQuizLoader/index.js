@@ -8,7 +8,7 @@ class FullQuizLoader extends Component {
   state = {
     questionsLength: 0,
     turn: 0,
-
+    lastOne: false
   }
 
   componentDidMount() {
@@ -28,7 +28,14 @@ class FullQuizLoader extends Component {
           duration: 350,
           fill: "forwards"
         });
+      if (this.state.turn === this.state.questionsLength - 2) {
+        console.log("This is the last Question now")
+        setTimeout(()=>{
+          this.setState({ lastOne: true })
+        }, 300)
+      }
       this.setState({ turn: this.state.turn + 1 });
+
     } else {
       console.log("no more questions")
     }
@@ -47,7 +54,11 @@ class FullQuizLoader extends Component {
                 iQues={i}
                 handleAnswer={this.props.handleAnswer}
               />
-              <button id="nextBtn" className="nextBtn" onClick={this.moveRight}>Next</button>
+
+              {this.state.lastOne ?
+                <button className="submitOneBtn">Submit Quiz</button>
+                :
+                <button id="nextBtn" className="nextOneBtn" onClick={this.moveRight}>Next</button>}
             </div>
           )}
         </div>

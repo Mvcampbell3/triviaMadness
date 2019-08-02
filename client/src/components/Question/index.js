@@ -5,7 +5,7 @@ const Question = (props) => {
   return (
     <div className={props.styleList ? "questionList" : "questionBlock"}>
       <h3 className="questionQ">{props.iQues + 1}. {props.question}</h3>
-      <div className="answerBlock">
+      <div className={props.styleList ? "answerList" : "answerBlock"}>
         {props.answers.map((answer, indexAnswers) =>
           <button
             key={indexAnswers}

@@ -1,6 +1,5 @@
 .fullQuiz{
   width: 300px;
-  /* overflow-x: hidden; */
   position: relative;
   left: 0;
   display: flex;
@@ -10,11 +9,11 @@
   width: 300px;
   margin: 0 auto;
   overflow: hidden;
+  background-color: #ddd;
 }
 
 .questionBlock{
   width: 300px;
-  /* min-width: 300px; */
   flex-shrink: 0;
   height: 400px;
   border: 1px black solid;
@@ -25,3 +24,27 @@
 .activeQuestion{
   opacity: 1;
 }
+
+.nextOneBtn, .submitOneBtn{
+  color: rgb(2, 63, 60);
+  background-color: white;
+  border: 1px black solid;
+  border-top: none;
+  padding: 5px 0;
+  width: 100%;
+  opacity: 0;
+  animation-name: waitOne;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.nextOneBtn:focus, .submitOneBtn:focus{
+  outline: none;
+}
+
+@keyframes waitOne{
+  0% {opacity: 0}
+  100% {opacity: 1}
+}
+
+/* This animation loads for the whole page, not question by question */
