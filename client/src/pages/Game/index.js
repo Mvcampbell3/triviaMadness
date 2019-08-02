@@ -119,6 +119,7 @@ class Game extends Component {
       <FullQuizLoader
         game={this.state.game}
         styleList={this.state.styleList}
+        handleAnswer={this.handleAnswer}
       />
     )
   }
