@@ -56,9 +56,18 @@ class FullQuizLoader extends Component {
                 answeredNumber={this.props.answeredNumber}
               />
               {this.state.lastOne ?
-                <button className="submitOneBtn">Submit Quiz</button>
+                <button
+                  onClick={this.props.userAnswers[i] === "" ? null : this.props.submitAnswers}
+                  className={this.props.userAnswers[i] === "" ? "nextOneBtnOff" : "submitOneBtn"}>
+                  Submit Quiz
+                </button>
                 :
-                <button id="nextBtn" className={this.props.userAnswers[i] === "" ? "nextOneBtnOff":"nextOneBtn"} onClick={this.props.userAnswers[i] === "" ? null: this.moveRight}>Next</button>
+                <button
+                  id="nextBtn"
+                  className={this.props.userAnswers[i] === "" ? "nextOneBtnOff" : "nextOneBtn"}
+                  onClick={this.props.userAnswers[i] === "" ? null : this.moveRight}>
+                  Next
+                </button>
               }
             </div>
           )}

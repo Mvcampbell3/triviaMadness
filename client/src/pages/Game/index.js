@@ -124,6 +124,7 @@ class Game extends Component {
         handleAnswer={this.handleAnswer}
         answeredNumber={this.state.answeredNumber}
         userAnswers={this.state.userAnswers}
+        submitAnswers={this.submitAnswers}
       />
     )
   }

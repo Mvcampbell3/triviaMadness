@@ -16,7 +16,7 @@ const ResultPage = (props) => {
 
             {console.log(props.gameResult)}
             {graded.map((grade, i) =>
-              <div className="questionBlock" key={i}>
+              <div className="questionList" key={i}>
                 <h3>{questions[i].question}</h3>
                 <h4 className={rightWrongArr[i] ? "rightHighlight" : "wrongHighlight"}
                   key={i}>Correct Answer: <span className="rightUserAnswer userAnswer">{grade.correct}</span>, Your Answer: <span className={rightWrongArr[i] ? "rightUserAnswer userAnswer" : "wrongUserAnswer userAnswer"}>{grade.userAnswer}</span></h4>
