@@ -30,7 +30,7 @@ class FullQuizLoader extends Component {
         });
       if (this.state.turn === this.state.questionsLength - 2) {
         console.log("This is the last Question now")
-        setTimeout(()=>{
+        setTimeout(() => {
           this.setState({ lastOne: true })
         }, 300)
       }
@@ -53,12 +53,13 @@ class FullQuizLoader extends Component {
                 answers={question.answers}
                 iQues={i}
                 handleAnswer={this.props.handleAnswer}
+                answeredNumber={this.props.answeredNumber}
               />
-
               {this.state.lastOne ?
                 <button className="submitOneBtn">Submit Quiz</button>
                 :
-                <button id="nextBtn" className="nextOneBtn" onClick={this.moveRight}>Next</button>}
+                <button id="nextBtn" className={this.props.userAnswers[i] === "" ? "nextOneBtnOff":"nextOneBtn"} onClick={this.props.userAnswers[i] === "" ? null: this.moveRight}>Next</button>
+              }
             </div>
           )}
         </div>

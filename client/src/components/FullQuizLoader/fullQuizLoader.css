@@ -25,7 +25,7 @@
   opacity: 1;
 }
 
-.nextOneBtn, .submitOneBtn{
+.nextOneBtn, .submitOneBtn, .nextOneBtnOff{
   color: rgb(2, 63, 60);
   background-color: white;
   border: 1px black solid;
@@ -38,8 +38,13 @@
   animation-fill-mode: forwards;
 }
 
-.nextOneBtn:focus, .submitOneBtn:focus{
+.nextOneBtn:focus, .submitOneBtn:focus, .nextOneBtnOff{
   outline: none;
+}
+
+.nextOneBtnOff{
+  color: #ccc;
+  
 }
 
 @keyframes waitOne{

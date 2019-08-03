@@ -15,7 +15,8 @@ class Game extends Component {
     styleList: true,
     start: false,
     title: "",
-    sendResultPage: false
+    sendResultPage: false,
+    answeredNumber: 0
   }
 
   componentDidMount() {
@@ -59,6 +60,7 @@ class Game extends Component {
 
     this.setState((prevState) => {
       prevState.userAnswers[whichClass] = answer;
+      prevState.answeredNumber = this.state.answeredNumber + 1;
       return prevState;
     }, () => {
       console.log(this.state.userAnswers)
@@ -120,6 +122,8 @@ class Game extends Component {
         game={this.state.game}
         styleList={this.state.styleList}
         handleAnswer={this.handleAnswer}
+        answeredNumber={this.state.answeredNumber}
+        userAnswers={this.state.userAnswers}
       />
     )
   }
