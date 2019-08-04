@@ -16,7 +16,8 @@ class Game extends Component {
     start: false,
     title: "",
     sendResultPage: false,
-    answeredNumber: 0
+    answeredNumber: 0,
+    timerStart: 0,
   }
 
   componentDidMount() {
@@ -46,7 +47,13 @@ class Game extends Component {
           placeholderArray.push("");
         }
         // console.log(placeholderArray)
-        this.setState({ game: result.data, loaded: true, userAnswers: placeholderArray, title: result.data.title })
+        this.setState({
+          game: result.data,
+          loaded: true,
+          userAnswers: placeholderArray,
+          title: result.data.title,
+          timerStart: result.data.questions.length * 3
+        })
       })
       .catch(err => console.log(err))
   }
@@ -85,7 +92,13 @@ class Game extends Component {
   }
 
   startQuiz = () => {
-    this.setState({ start: true })
+    this.setState(prevState => {
+      prevState.start = true;
+      return prevState;
+    }, () => {
+      this.gameTimer();
+    });
+
   }
 
   displayQuestions = () => {
@@ -129,6 +142,35 @@ class Game extends Component {
     )
   }
 
+  gameTimer = () => {
+    const howMany = this.state.game.questions.length;
+    const timePlace = document.getElementById("timePlace");
+    console.log(howMany)
+    let timeLeft = howMany * 3;
+    console.log(timeLeft)
+    this.intervalTimer = setInterval(() => {
+      if (timeLeft === 0) {
+        this.outOfTime();
+      } else {
+        timeLeft--;
+        // Do sometime to display time;
+        timePlace.textContent = timeLeft;
+        // Temp fix
+        console.log(timeLeft);
+      }
+    }, 1000)
+  }
+
+  intervalTimer = null;
+
+  outOfTime = () => {
+    clearInterval(this.intervalTimer);
+    console.log("Out of time!")
+    const timePlace = document.getElementById("timePlace");
+    timePlace.textContent = "Out of Time!"
+    this.submitAnswers();
+  }
+
   render() {
     return (
       <div className="container">
@@ -140,6 +182,7 @@ class Game extends Component {
             <h2 className="text-center">Quiz Title: {this.state.game.title}</h2>
             <h3 className="text-center">Category: {this.state.game.category}</h3>
             <h3 className="text-center">Time Limit: 30 seconds per question</h3>
+            <h3 className="text-center" id="timePlace">{this.state.timerStart}</h3>
             {this.state.start ? null :
               <div className="beforeQuiz">
                 <div className="styleGame">

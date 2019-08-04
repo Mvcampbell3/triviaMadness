@@ -12,11 +12,13 @@ const Home = (props) => {
       <Header user={props.user} logoutUser={props.logoutUser} />
       {props.checkedAuth ? <div>
         {props.user ? <div>
+          {/* Place for logged in users */}
           Welcome Back {props.username}!
       </div> : <div>
-            <p className="homeContent text-center">
+        {/* Place for not logged in users */}
+            <p className="homeTitle text-center">
               Welcome to Trivia Madness!
-          </p>
+            </p>
             <div className="wrapperHome">
               {props.resetSendHome()}
               <div className="textHome">
