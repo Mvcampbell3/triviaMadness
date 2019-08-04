@@ -83,34 +83,33 @@ class GameSelection extends Component {
         <div className="wrapper">
           {this.redirectLogin()}
           {this.redirectHome()}
-          <h1 className="text-center">This is the Games Page</h1>
           {this.state.loaded ? <div className="gamesHolder">
             <div className="gameDiv">
-              <h3 className="text-center">History Games</h3>
+              <h3 className="text-center">History Quizzes</h3>
               {this.state.historyGames.map(game => <div key={game._id}>
                 <Link to="/playgame" className="gameLink" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
               </div>)}
             </div>
             <div className="gameDiv">
-              <h3 className="text-center">Movie and TV Games</h3>
+              <h3 className="text-center">Movie and TV Quizzes</h3>
               {this.state.moviesAndTVGames.map(game => <div key={game._id}>
                 <Link to="/playgame" className="gameLink" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
               </div>)}
             </div>
             <div className="gameDiv">
-              <h3 className="text-center">Music Games</h3>
+              <h3 className="text-center">Music Quizzes</h3>
               {this.state.musicGames.map(game => <div key={game._id}>
                 <Link to="/playgame" className="gameLink" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
               </div>)}
             </div>
             <div className="gameDiv">
-              <h3 className="text-center">Science Games</h3>
+              <h3 className="text-center">Science Quizzes</h3>
               {this.state.scienceGames.map(game => <div key={game._id}>
                 <Link to="/playgame" className="gameLink" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
               </div>)}
             </div>
             <div className="gameDiv">
-              <h3 className="text-center">Other Games</h3>
+              <h3 className="text-center">Other Quizzes</h3>
               {this.state.otherGames.map(game => <div key={game._id}>
                 <Link to="/playgame" className="gameLink" data-game_id={game._id} onClick={e => this.props.handleGameSelect(e)}>{game.title}</Link>
               </div>)}

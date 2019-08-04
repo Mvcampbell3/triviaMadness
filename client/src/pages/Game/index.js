@@ -75,6 +75,7 @@ class Game extends Component {
   }
 
   submitAnswers = () => {
+    clearInterval(this.intervalTimer)
     API.gradeGame(this.props.gameSelectID, this.state.userAnswers)
       .then(result => {
         console.log(result)
