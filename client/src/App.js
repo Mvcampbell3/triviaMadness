@@ -23,7 +23,8 @@ class App extends Component {
     sendHome: false,
     gameResult: {},
     quizTitle: "",
-    failedLogin: false
+    failedLogin: false,
+    checkedAuth: false
   }
 
   componentDidMount() {
@@ -82,7 +83,7 @@ class App extends Component {
             this.setState({ user: false })
             // reroute to login page
           } else {
-            this.setState({ user: true, username: result.data.username, id: result.data.id })
+            this.setState({ user: true, username: result.data.username, id: result.data.id, checkedAuth: true })
           }
         })
         .catch(err => {
@@ -90,7 +91,7 @@ class App extends Component {
         })
     } else {
       console.log("no token saved")
-      this.setState({ user: false })
+      this.setState({ user: false, checkedAuth: true })
     }
   }
 
@@ -136,6 +137,8 @@ class App extends Component {
               logoutUser={this.logoutUser}
               sendHome={this.state.sendHome}
               resetSendHome={this.resetSendHome}
+              username={this.state.username}
+              checkedAuth={this.state.checkedAuth}
             />} />
             <Route path="/login" exact render={props => <Login
               user={this.state.user}

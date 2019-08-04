@@ -1,0 +1,27 @@
+.homePic{
+  width: 300px;
+  height: 477.47px;
+  height: auto;
+  display: block;
+}
+
+.homeContent{
+  font-size: 20px;
+}
+
+.wrapperHome{
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: auto 300px;
+  padding: 5px;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.textHome{
+  padding: 5px;
+}
+
+.containerHome{
+  animation-delay: .5s;
+}

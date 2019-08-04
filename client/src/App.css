@@ -14,7 +14,7 @@
   padding-bottom: 50px;
 }
 
-.container{
+.container, .containerHome{
   width: 70%;
   min-width: 350px;
   margin: 25px auto;
@@ -72,4 +72,8 @@
 
 .switchSignup:focus{
   outline: none;
+}
+
+.margin-top{
+  margin-top: 2em;
 }
