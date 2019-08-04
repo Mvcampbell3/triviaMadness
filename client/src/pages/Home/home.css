@@ -1,6 +1,5 @@
 .homePic{
-  width: 300px;
-  height: 477.47px;
+  width: 200px;
   height: auto;
   display: block;
 }
@@ -13,7 +12,7 @@
 .wrapperHome{
   max-width: 1000px;
   display: grid;
-  grid-template-columns: auto 300px;
+  grid-template-columns: auto 200px;
   padding: 5px;
   width: fit-content;
   margin: 0 auto;

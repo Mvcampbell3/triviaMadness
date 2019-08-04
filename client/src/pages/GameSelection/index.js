@@ -43,7 +43,7 @@ class GameSelection extends Component {
           setTimeout(() => {
             this.setState({ loaded: true });
             console.log("timeout ran")
-            
+
           }, 750)
         })
       })
@@ -56,9 +56,12 @@ class GameSelection extends Component {
     API.checkAuth()
       .then(result => {
         console.log(result);
-        this.setState({ user: result.data.user, username: result.data.username, userID: result.data.id })
         if (result.data.user) {
+          this.setState({ user: result.data.user, username: result.data.username, userID: result.data.id })
           this.getAllGames();
+        } else {
+          this.props.removeUser();
+          this.redirectHome();
         }
       })
       .catch(err => console.log(err))

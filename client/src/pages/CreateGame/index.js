@@ -29,6 +29,8 @@ class CreateGame extends Component {
     }
   }
 
+  // Need to add checkAuth here and redirect to home page just like in Game Selection page
+
   addQuestion = () => {
     const questionCreateArea = document.getElementById("questionCreateArea");
 
@@ -81,8 +83,9 @@ class CreateGame extends Component {
 
     answerButtons.forEach((button, i) => {
       button.className = "answerButton";
-      button.textContent = "O"
-      button.dataset.holder = `answer${i}`
+      button.textContent = "O";
+      button.dataset.holder = `answer${i}`;
+      button.setAttribute("tabIndex", -1);
       button.addEventListener("click", function() {
         console.log(this.parentElement.parentElement.parentElement.dataset.correct)
         this.parentElement.parentElement.parentElement.dataset.correct =

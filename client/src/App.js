@@ -52,13 +52,13 @@ class App extends Component {
           localStorage.setItem("token", result.data.token)
         } else {
           // alert("Wrong email or password");
-          this.setState({password: "", failedLogin: true})
+          this.setState({ password: "", failedLogin: true })
         }
-        
+
       })
       .catch(err => {
         console.log(err)
-        this.setState({password: "", failedLogin: true})
+        this.setState({ password: "", failedLogin: true })
       })
   }
 
@@ -72,6 +72,10 @@ class App extends Component {
       })
   }
 
+  removeUser = () => {
+    this.setState({ user: false, checkedAuth: true, sendHome: true })
+  }
+
   checkAuth = () => {
     if (localStorage.getItem("token")) {
       console.log("has token");
@@ -80,7 +84,7 @@ class App extends Component {
           console.log(result.data)
           if (!result.data.user) {
             localStorage.removeItem("token")
-            this.setState({ user: false })
+            this.setState({ user: false, checkedAuth: true })
             // reroute to login page
           } else {
             this.setState({ user: true, username: result.data.username, id: result.data.id, checkedAuth: true })
@@ -139,6 +143,7 @@ class App extends Component {
               resetSendHome={this.resetSendHome}
               username={this.state.username}
               checkedAuth={this.state.checkedAuth}
+              checkAuth={this.checkAuth}
             />} />
             <Route path="/login" exact render={props => <Login
               user={this.state.user}
@@ -161,6 +166,7 @@ class App extends Component {
               gameSelectID={this.state.gameSelectID}
               handleGameSelect={this.handleGameSelect}
               sendHome={this.state.sendHome}
+              removeUser={this.removeUser}
             />} />
             <Route path="/playgame" exact render={props => <Game
               user={this.state.user}
