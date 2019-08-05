@@ -4,6 +4,8 @@ header{
   justify-content: space-between;
   padding: 10px 10px;
   background-color: #eee;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 nav ul{

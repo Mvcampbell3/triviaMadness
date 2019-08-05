@@ -8,7 +8,7 @@ const Login = (props) => {
     <div className="loginBox container">
       <Header user={props.user} logoutUser={props.logoutUser} />
       {props.renderRedirect()}
-      <div className="wrapper">
+      <div className="wrapper formWrap">
         <h2 className="text-center">{props.signup ? "Signup" : "Login"}</h2>
         <div className="loginForm">
           <div className="loginGroup">

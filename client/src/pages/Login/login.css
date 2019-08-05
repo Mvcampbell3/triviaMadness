@@ -1,3 +1,9 @@
+.formWrap{
+  width: 80%;
+  margin: 1em auto;
+  padding: 10px;
+}
+
 .loginButtons .formBtn{
   margin-right: 30px;
 }
