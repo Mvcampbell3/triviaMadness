@@ -83,7 +83,7 @@ class CreateGame extends Component {
 
     answerButtons.forEach((button, i) => {
       button.className = "answerButton";
-      button.textContent = "O";
+      button.textContent = "?";
       button.dataset.holder = `answer${i}`;
       button.setAttribute("tabIndex", -1);
       button.addEventListener("click", function() {
@@ -92,10 +92,12 @@ class CreateGame extends Component {
           this.parentElement.parentElement.parentElement.dataset[this.dataset.holder]
         answerButtons.forEach(one => {
           one.className = "answerButton";
-          one.textContent = "O"
+          one.textContent = "?"
+          one.style.color = "black"
         });
         this.classList = "answerButton clicked"
-        this.textContent = "X"
+        this.innerHTML = "<i class='fas fa-check'></i>"
+        this.style.color = "white";
       })
     })
 
@@ -111,7 +113,7 @@ class CreateGame extends Component {
         console.log(datasets)
         answerButtons.forEach(one => {
           one.className = "answerButton";
-          one.textContent = "O"
+          one.textContent = "?"
         })
       })
     })

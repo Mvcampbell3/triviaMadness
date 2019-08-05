@@ -26,6 +26,19 @@
   padding: 5px;
   font-size: 14px;
   width: fit-content;
+  min-width: 400px;
+  margin-top: .25em;
+}
+
+.answerButton{
+  height: 34.4px;
+  width: 34.4px;
+  border: 1px black solid;
+  background-color: white;
+}
+
+.answerButton:focus{
+  outline: none;
 }
 
 .addQBtn, .submitBtn, .beginBtn{
@@ -53,6 +66,7 @@
   background-color: darkred;
   color: white;
   border: 1px black solid;
-  padding: 3px 8px;
   border-radius: 50%;
+  height: 24.8px;
+  width: 24.8px;
 }
