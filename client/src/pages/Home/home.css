@@ -1,17 +1,17 @@
-.homePic{
+.homePic {
   width: 200px;
   height: auto;
   display: block;
 }
 
-.homeContent{
+.homeContent {
   font-size: 20px;
   padding: 3px;
   max-width: 600px;
   margin: 1em auto 0 auto;
 }
 
-.wrapperHome{
+.wrapperHome {
   display: grid;
   grid-template-columns: 100px auto 100px;
   grid-column-gap: 10px;
@@ -19,18 +19,74 @@
   margin-top: 1em;
 }
 
-.middle{
+.middle {
   display: flex;
   justify-content: space-between;
   border: 1.5px rgb(2, 63, 60) solid;
-  /* box-shadow: 0 0 3px 3px rgba(2, 63, 60, 0.377); */
   padding: 3px;
 }
 
-.textHome{
+.textHome {
   padding: 5px;
 }
 
-.containerHome{
+.containerHome {
   animation-delay: .5s;
+}
+
+.return {
+  width: 70%;
+  margin: 2em auto;
+  padding-bottom: 150px;
+  position: relative;
+}
+
+.holderPlaces{
+  width: 400px;
+  margin: 2em auto;
+
+}
+
+.boxPlace {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  position: absolute;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  border: 1px black solid;
+  background-color: #444;
+  color: white;
+}
+
+#boxMove{
+  animation-name: boxer;
+  animation-duration: 15s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+#boxMove2{
+  animation-name: reverseBoxer;
+  animation-fill-mode: forwards;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+  transform: translate(300px, 0px);
+  animation-iteration-count: infinite;
+}
+
+@keyframes boxer{
+  0%, 100% {transform: translate(0px, 0px) scale(1); z-index: 5}
+  25% {transform: translate(150px, 0px) scale(1.15); z-index: 5}
+  50% {transform: translate(300px, 0px) scale(1); z-index: 5}
+  75% {transform: translate(150px) scale(0.75); z-index: 2}
+}
+
+@keyframes reverseBoxer{
+  0%, 100% {transform: translate(300px, 0px) scale(1); z-index: 5}
+  25% {transform: translate(150px, 0px) scale(0.75); z-index: 2}
+  50% {transform: translate(0px, 0px) scale(1); z-index: 5}
+  75% {transform: translate(150px, 0px) scale(1.15); z-index: 5}
 }

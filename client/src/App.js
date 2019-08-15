@@ -144,6 +144,7 @@ class App extends Component {
               username={this.state.username}
               checkedAuth={this.state.checkedAuth}
               checkAuth={this.checkAuth}
+              rotateBoxes={this.rotateBoxes}
             />} />
             <Route path="/login" exact render={props => <Login
               user={this.state.user}

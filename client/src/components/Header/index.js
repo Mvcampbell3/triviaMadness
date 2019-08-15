@@ -15,7 +15,7 @@ const Header = (props) => {
           {props.user ? <li><Link to="/games">Games</Link></li> : null}
           {props.user ? <li><Link to="/creategame">Create Game</Link></li> : null}
           <li>
-            {props.user ? <button onClick={props.logoutUser}>Logout</button> : <Link to="/login">Login</Link>}
+            {props.user ? <button className="logoutBtn" onClick={props.logoutUser}>Logout</button> : <Link to="/login">Login</Link>}
           </li>
         </ul>
       </nav>

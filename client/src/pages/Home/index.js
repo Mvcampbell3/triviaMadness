@@ -12,9 +12,15 @@ const Home = (props) => {
           {props.user ?
             <div className="container">
               <Header user={props.user} logoutUser={props.logoutUser} />
-
+              <div className="return">
+                <h4>Welcome Back {props.username}!</h4>
+                <p>Would you like to play or create?</p>
+                <div className="holderPlaces">
+                  <div className="boxPlace" id="boxMove">Create</div>
+                  <div className="boxPlace" id="boxMove2">Play</div>
+                </div>
+              </div>
               {/* Place for logged in users */}
-              Welcome Back {props.username}!
             </div> :
             <div className="container">
               {/* Place for not logged in users */}
