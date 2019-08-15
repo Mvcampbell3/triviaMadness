@@ -38,6 +38,7 @@
   animation-duration: .5s;
   animation-fill-mode: forwards;
   border-radius: 5px;
+  background: white url("./images/bgSVG.svg") no-repeat bottom right;
 }
 
 @keyframes opacIn {

@@ -52,7 +52,7 @@ class Game extends Component {
           loaded: true,
           userAnswers: placeholderArray,
           title: result.data.title,
-          timerStart: result.data.questions.length * 3
+          timerStart: result.data.questions.length * 30
         })
       })
       .catch(err => console.log(err))
@@ -147,7 +147,7 @@ class Game extends Component {
     const howMany = this.state.game.questions.length;
     const timePlace = document.getElementById("timePlace");
     console.log(howMany)
-    let timeLeft = howMany * 3;
+    let timeLeft = howMany * 30;
     console.log(timeLeft)
     this.intervalTimer = setInterval(() => {
       if (timeLeft === 0) {

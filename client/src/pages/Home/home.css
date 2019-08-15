@@ -23,7 +23,7 @@
   display: flex;
   justify-content: space-between;
   border: 1.5px rgb(2, 63, 60) solid;
-  box-shadow: 0 0 3px 3px rgba(2, 63, 60, 0.377);
+  /* box-shadow: 0 0 3px 3px rgba(2, 63, 60, 0.377); */
   padding: 3px;
 }
 
