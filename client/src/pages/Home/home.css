@@ -35,7 +35,8 @@
 }
 
 .return {
-  width: 70%;
+  width: 400px;
+  text-align: center;
   margin: 2em auto;
   padding-bottom: 150px;
   position: relative;
@@ -44,7 +45,6 @@
 .holderPlaces{
   width: 400px;
   margin: 2em auto;
-
 }
 
 .boxPlace {
@@ -56,37 +56,53 @@
   place-items: center;
   font-size: 30px;
   border: 1px black solid;
-  background-color: #444;
   color: white;
+  background: url("../../images/planet2.png");
+  background-size: 800px;
 }
 
 #boxMove{
   animation-name: boxer;
-  animation-duration: 15s;
+  animation-duration: 7s;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+  background-position-x: 340px;
 }
 
 #boxMove2{
   animation-name: reverseBoxer;
   animation-fill-mode: forwards;
-  animation-duration: 15s;
+  animation-duration: 7s;
   animation-timing-function: linear;
-  transform: translate(300px, 0px);
+  transform: translate(250px, 0px);
   animation-iteration-count: infinite;
+  background-position-x: 230px;
+}
+
+#boxMove3{
+  width: 50px;
+  height: 50px;
+  font-size: 16px;
+  transform: translate(175px, 50px);
+  z-index: 3;
+  background: yellow;
+  color: black;
 }
 
 @keyframes boxer{
-  0%, 100% {transform: translate(0px, 0px) scale(1); z-index: 5}
-  25% {transform: translate(150px, 0px) scale(1.15); z-index: 5}
-  50% {transform: translate(300px, 0px) scale(1); z-index: 5}
-  75% {transform: translate(150px) scale(0.75); z-index: 2}
+  
+  0%, 100% {transform: translate(0px, 0px) scale(0.5); z-index: 5; background-position-x: 340px}
+  25% {transform: translate(125px, 0px) scale(1); z-index: 5; background-position-x: 500px}
+  50% {transform: translate(250px, 0px) scale(0.5); z-index: 5; background-position-x: 600px}
+  74% {transform: translate(125px) scale(0.25); z-index: 2; background-position-x: 800px}
+  75% {transform: translate(125px) scale(0.25); z-index: 2; background-position-x: 200px}
 }
 
 @keyframes reverseBoxer{
-  0%, 100% {transform: translate(300px, 0px) scale(1); z-index: 5}
-  25% {transform: translate(150px, 0px) scale(0.75); z-index: 2}
-  50% {transform: translate(0px, 0px) scale(1); z-index: 5}
-  75% {transform: translate(150px, 0px) scale(1.15); z-index: 5}
+  0%, 100% {transform: translate(250px, 0px) scale(0.5); z-index: 5; background-position-x: 600px}
+  24% {transform: translate(125px, 0px) scale(0.25); z-index: 2; background-position-x: 800px}
+  25% {transform: translate(125px, 0px) scale(0.25); z-index: 2; background-position-x: 200px}
+  50% {transform: translate(0px, 0px) scale(0.5); z-index: 5; background-position-x: 340px}
+  75% {transform: translate(125px, 0px) scale(1); z-index: 5; background-position-x: 500px}
 }
