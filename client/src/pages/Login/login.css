@@ -26,3 +26,29 @@
   0% {height: 0px}
   100% {height: 24px}
 }
+
+.fadeIn{
+  height: 0px;
+  overflow: hidden;
+  animation-name: fadeDown;
+  animation-duration: .3s;
+  animation-fill-mode: forwards; 
+}
+
+@keyframes fadeDown{
+  0% {height: 0px}
+  100% {height: 72px}
+}
+
+.fadeOut{
+  height: 72px;
+  overflow: hidden;
+  animation-name: fadeUp;
+  animation-duration: .3s;
+  animation-fill-mode: forwards; 
+}
+
+@keyframes fadeUp{
+  0% {height: 72px}
+  100% {height: 0px}
+}

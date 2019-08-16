@@ -19,12 +19,14 @@ class App extends Component {
     password: "",
     id: "",
     signup: false,
+    showSignup: false,
     gameSelectID: "",
     sendHome: false,
     gameResult: {},
     quizTitle: "",
     failedLogin: false,
-    checkedAuth: false
+    checkedAuth: false,
+    justSigned: false
   }
 
   componentDidMount() {
@@ -48,7 +50,7 @@ class App extends Component {
       .then(result => {
         console.log(result.data);
         if (result.data !== false) {
-          this.setState({ user: true, username: result.data.username, failedLogin: false })
+          this.setState({ user: true, username: result.data.username, failedLogin: false, justSigned: false })
           localStorage.setItem("token", result.data.token)
         } else {
           // alert("Wrong email or password");
@@ -66,6 +68,17 @@ class App extends Component {
     API.signupUser(this.state.email, this.state.username, this.state.password)
       .then(result => {
         console.log(result);
+        if (result.data.username === this.state.username) {
+          this.setState(prevState => {
+            prevState.showSignup = false;
+            prevState.justSigned = true;
+            return prevState;
+          }, () => {
+            setTimeout(() => {
+              this.setState({ signup: false })
+            }, 280)
+          });
+        }
       })
       .catch(err => {
         console.log(err);
@@ -100,7 +113,18 @@ class App extends Component {
   }
 
   switchSignup = () => {
-    this.setState({ signup: !this.state.signup })
+    if (this.state.signup) {
+      this.setState(prevState => {
+        prevState.showSignup = false;
+        return prevState;
+      }, () => {
+        setTimeout(() => {
+          this.setState({ signup: !this.state.signup })
+        }, 280)
+      })
+    } else {
+      this.setState({ signup: !this.state.signup, showSignup: !this.state.showSignup })
+    }
   }
 
   handleInputChange = e => {
@@ -159,6 +183,8 @@ class App extends Component {
               loginUser={this.loginUser}
               signupUser={this.signupUser}
               failedLogin={this.state.failedLogin}
+              justSigned={this.state.justSigned}
+              showSignup={this.state.showSignup}
             />} />
             <Route path="/games" exact render={props => <GameSelection
               renderRedirectLogin={this.renderRedirectLogin}

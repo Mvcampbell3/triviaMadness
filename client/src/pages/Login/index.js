@@ -15,7 +15,7 @@ const Login = (props) => {
             <label>Email</label>
             <input className="inputText" type="email" name="email" autoComplete="off" onChange={e => props.handleInputChange(e)} value={props.email} />
           </div>
-          {props.signup ? <div className="loginGroup">
+          {props.signup ? <div id="usernameInput" className={props.showSignup ? "loginGroup fadeIn" : "loginGroup fadeOut"}>
             <label>Username</label>
             <input className="inputText" type="text" name="username" autoComplete="off" onChange={e => props.handleInputChange(e)} value={props.username} />
           </div> : null}
@@ -25,10 +25,12 @@ const Login = (props) => {
             <input className="inputText" type="password" name="password" autoComplete="off" onChange={e => props.handleInputChange(e)} value={props.password} />
           </div>
         </div>
-        {props.failedLogin ? <div className="downTown">Incorrect Email or Password</div>: null}
+        {props.failedLogin ? <div className="downTown">Incorrect Email or Password</div> : null}
+        {props.justSigned ? <div className="downTown">You're signed up! Just login to enter!</div> : null}
         <div className="loginButtons">
           <button className="formBtn" onClick={props.signup ? props.signupUser : props.loginUser}>{props.signup ? "Signup" : "Login"}</button>
-          <button className="switchSignup" onClick={props.switchSignup}>{props.signup ? "Already a member?" : "Not a member yet?"}</button>
+          {props.justSigned ? null : <button className="switchSignup" onClick={props.switchSignup}>{props.signup ? "Already a member?" : "Not a member yet?"}</button>}
+
         </div>
       </div>
     </div>
