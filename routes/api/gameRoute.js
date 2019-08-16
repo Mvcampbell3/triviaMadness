@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const db = require("../../models");
 const checkAuth = require("../../middleware/checkAuth");
+const isMod = require("../../middleware/isMod")
 
 // add checkAuth back in to routes!
 
@@ -37,7 +38,7 @@ router.post("/newgame", checkAuth, (req, res, next) => {
     })
 })
 
-router.delete("/deletegame/:id", (req, res, next) => {
+router.delete("/deletegame/:id", isMod, (req, res, next) => {
   const gameID = req.params.id;
   // check if req.user.id === game.creatorID
   db.Game.findById(gameID)

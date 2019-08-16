@@ -2,13 +2,14 @@ const router = require("express").Router();
 const db = require("../../models")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const checkAuth = require("../../middleware/checkAuth")
+const checkAuth = require("../../middleware/checkAuth");
+const isMod = require("../../middleware/isMod");
 
 router.get("/test", (req, res) => {
   res.json("working here at api/user/test");
 })
 
-router.get("/allusers", (req, res, next) => {
+router.get("/allusers", isMod, (req, res, next) => {
   db.User.find()
     .then(result => {
       console.log(result);
@@ -83,7 +84,7 @@ router.post("/login", (req, res, next) => {
     })
 })
 
-router.delete("/deleteuser/:id", (req, res, next) => {
+router.delete("/deleteuser/:id", isMod, (req, res, next) => {
   db.Game.remove({ creatorID: req.params.id })
     .then(games => {
       console.log(games);
