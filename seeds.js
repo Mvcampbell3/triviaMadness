@@ -1,4 +1,4 @@
-const userID = "5d3698f42c75c055c4dadf1a"
+const userID = "5d56bf7244bd3e002af3eb24"
 const Game = require("./models/Game");
 
 const seed1 = new Game({

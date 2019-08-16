@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require("mongoose");
 const seedDB = require("./seeds");
-const seedMe = false;
+const seedMe = true;
 
 require("dotenv").config();
 
