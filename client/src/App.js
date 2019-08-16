@@ -11,6 +11,8 @@ import Game from "./pages/Game"
 import CreateGame from "./pages/CreateGame"
 import ResultPage from "./pages/ResultPage"
 
+import Message from "./components/Message"
+
 class App extends Component {
   state = {
     user: null,
@@ -26,7 +28,10 @@ class App extends Component {
     quizTitle: "",
     failedLogin: false,
     checkedAuth: false,
-    justSigned: false
+    justSigned: false,
+    showMessage: false,
+    messageTitle: "",
+    messageContent: ""
   }
 
   componentDidMount() {
@@ -81,7 +86,15 @@ class App extends Component {
         }
       })
       .catch(err => {
-        console.log(err);
+        // if mongo dup error, code 11000
+        // need to have a large tree of if err.whatwhatthis
+        const which = err.response;
+        console.log(which)
+        if (which.data.code === 11000) {
+          console.log("This is a dup email/username error");
+          return this.setState({ showMessage: true, messageContent: "Email and/or username already taken", messageTitle: "Opps" })
+        }
+        this.setState({ showMessage: true, messageContent: "Something went wrong", messageTitle: "Opps" })
       })
   }
 
@@ -119,11 +132,11 @@ class App extends Component {
         return prevState;
       }, () => {
         setTimeout(() => {
-          this.setState({ signup: !this.state.signup })
+          this.setState({ signup: !this.state.signup, failedLogin: false })
         }, 280)
       })
     } else {
-      this.setState({ signup: !this.state.signup, showSignup: !this.state.showSignup })
+      this.setState({ signup: !this.state.signup, showSignup: !this.state.showSignup, failedLogin: false })
     }
   }
 
@@ -155,10 +168,20 @@ class App extends Component {
     }, cb())
   }
 
+  handleClearMessage = () => {
+    this.setState({ showMessage: false, messageContent: "", messageTitle: "" })
+  }
+
   render() {
     return (
       <Router>
         <div className="background">
+          <Message
+            showMessage={this.state.showMessage}
+            messageContent={this.state.messageContent}
+            messageTitle={this.state.messageTitle}
+            handleClearMessage={this.handleClearMessage}
+          />
           <Switch>
             <Route path="/" exact render={props => <Home
               user={this.state.user}
@@ -185,6 +208,10 @@ class App extends Component {
               failedLogin={this.state.failedLogin}
               justSigned={this.state.justSigned}
               showSignup={this.state.showSignup}
+              showMessage={this.state.showMessage}
+              messageContent={this.state.messageContent}
+              messageTitle={this.state.messageTitle}
+              handleClearMessage={this.handleClearMessage}
             />} />
             <Route path="/games" exact render={props => <GameSelection
               renderRedirectLogin={this.renderRedirectLogin}

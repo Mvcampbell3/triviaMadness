@@ -1,0 +1,47 @@
+.hideMessage {
+  display: none;
+}
+
+.messageBox {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(36, 28, 28, 0.7);
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  animation-name: fadeBoxIn;
+  animation-duration: .3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeBoxIn{
+  0% {opacity: 0}
+  100% {opacity: 1}
+}
+
+.messageWrapper {
+  margin-top: 4em;
+  width: 350px;
+  height: fit-content;
+  text-align: center;
+  padding: 20px;
+  background-color: white;
+  color: black;
+  border-radius: 15px;
+}
+
+.messageContent{
+  color: rgb(2, 63, 60);
+  margin: 1em 0;
+}
+
+.okBtn{
+  width: 50%;
+  margin-top:1em;
+  padding: 5px 0;
+  background-color: rgb(2, 63, 60);
+  color: white;
+  border: 1px black solid;
+}

@@ -27,6 +27,22 @@
   100% {height: 24px}
 }
 
+.downTownOut{
+  height: 24px;
+  overflow: hidden;
+  font-style: italic;
+  color: darkred;
+  animation-name: downTownOut;
+  animation-duration: .3s;
+  animation-fill-mode: forwards
+}
+
+@keyframes downTownOut{
+  0% {height: 24px}
+  100% {height: 0px}
+}
+
+
 .fadeIn{
   height: 0px;
   overflow: hidden;

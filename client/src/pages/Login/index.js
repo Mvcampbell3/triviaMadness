@@ -1,7 +1,7 @@
 import React from 'react';
 import "./login.css"
 
-import Header from "../../components/Header"
+import Header from "../../components/Header";
 
 const Login = (props) => {
   return (
@@ -25,7 +25,7 @@ const Login = (props) => {
             <input className="inputText" type="password" name="password" autoComplete="off" onChange={e => props.handleInputChange(e)} value={props.password} />
           </div>
         </div>
-        {props.failedLogin ? <div className="downTown">Incorrect Email or Password</div> : null}
+        <div className={props.failedLogin ? "downTown" : "downTownOut"}>Incorrect Email or Password</div>
         {props.justSigned ? <div className="downTown">You're signed up! Just login to enter!</div> : null}
         <div className="loginButtons">
           <button className="formBtn" onClick={props.signup ? props.signupUser : props.loginUser}>{props.signup ? "Signup" : "Login"}</button>
