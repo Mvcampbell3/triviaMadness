@@ -27,14 +27,18 @@
   font-size: 14px;
   width: fit-content;
   min-width: 400px;
+}
+
+.answerBox{
   margin-top: .25em;
 }
 
 .answerButton{
-  height: 34.4px;
-  width: 34.4px;
-  border: 1px black solid;
+  height: 34.8px;
+  width: 34.8px;
+  border: .5px black solid;
   background-color: white;
+  margin-right: 2px;
 }
 
 .answerButton:focus{
@@ -54,6 +58,8 @@
 
 .clicked{
   background-color: green;
+  border-radius: 15px;
+  transition: all, .3s;
 }
 
 .deleteQuestion{
@@ -61,12 +67,24 @@
 }
 
 .delBtn{
-  position: relative;
-  left: -20px;
   background-color: darkred;
   color: white;
   border: 1px black solid;
   border-radius: 50%;
   height: 24.8px;
   width: 24.8px;
+  margin-right: 5px;
+}
+
+.newQuestion{
+  height: 0px;
+  overflow-y: hidden;
+  animation-name: dropQuestion;
+  animation-duration: .3s;
+  animation-fill-mode: forwards
+}
+
+@keyframes dropQuestion{
+  0% {height: 0px}
+  100% {height: 214.8px}
 }

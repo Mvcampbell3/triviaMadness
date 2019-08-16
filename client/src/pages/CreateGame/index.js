@@ -118,6 +118,11 @@ class CreateGame extends Component {
       })
     })
 
+    const answersArray = [answer1, answer2, answer3, answer4];
+    answersArray.forEach(one => {
+      one.classList = "answerBox";
+    })
+
     answer1.append(answer1Button, answer1Input);
     answer2.append(answer2Button, answer2Input);
     answer3.append(answer3Button, answer3Input);
@@ -131,7 +136,25 @@ class CreateGame extends Component {
   grabQuiz = () => {
     let gameQuestions = [];
     let correctAnswers = [];
+    let badQuiz = false;
     const allQuestions = [].slice.call(document.querySelectorAll(".newQuestion"));
+
+    if (!this.state.title || !this.state.category) {
+      badQuiz = true;
+    }
+
+    allQuestions.forEach(one => {
+      if (one.dataset.question === "empty" || one.dataset.answer0 === "empty" || one.dataset.answer1 === "empty" || one.dataset.answer2 === "empty" || one.dateset.answer3 === "empty" || one.dataset.correct === "empty") {
+        console.log("this will not work");
+        badQuiz = true;
+      }
+    })
+
+    if (badQuiz) {
+      // Put in message handler from app.js!
+      return;
+    }
+
     allQuestions.forEach((question, i) => {
       gameQuestions.push({
         question: question.dataset.question,
