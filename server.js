@@ -3,6 +3,8 @@ const routes = require("./routes")
 const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require("mongoose");
+const seedDB = require("./seeds");
+const seedMe = false;
 
 require("dotenv").config();
 
@@ -17,6 +19,11 @@ if (process.env.NODE_ENV === "production") {
 // Send every request to the React app
 // Define any API routes before this runs
 app.use(routes)
+
+if (seedMe) {
+  seedDB();
+}
+
 
 // Change DB name here
 const dbase = "triviamadness";

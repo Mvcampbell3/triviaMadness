@@ -59,6 +59,12 @@ router.delete("/deletegame/:id", isMod, (req, res, next) => {
     })
 })
 
+router.delete("/deleteallgames", isMod, (req,res,next) => {
+  db.Game.deleteMany()
+    .then(result => res.status(200).json({result: result, all: "gone"}))
+    .catch(err => res.status(400).json(err))
+})
+
 router.get("/playgame/:id", checkAuth, (req, res, next) => {
   const gameID = req.params.id;
   db.Game.findById(gameID)
