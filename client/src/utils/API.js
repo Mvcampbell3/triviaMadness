@@ -16,7 +16,7 @@ export default {
   checkAuth(){
     return Axios.get("/api/user/checkauth", {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token")
+        Authorization: "Bearer " + localStorage.getItem("token-trivia-madness")
       }
     })
   },
@@ -24,7 +24,7 @@ export default {
   getAllGames(){
     return Axios.get("/api/game/", {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token")
+        Authorization: "Bearer " + localStorage.getItem("token-trivia-madness")
       }
     })
   },
@@ -32,7 +32,7 @@ export default {
   getGameByID(gameID) {
     return Axios.get(`api/game/playgame/${gameID}`, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token")
+        Authorization: "Bearer " + localStorage.getItem("token-trivia-madness")
       }
     })
   },
@@ -40,7 +40,7 @@ export default {
   gradeGame(gameID, userAnswers) {
     return Axios.post(`/api/game/gradegame/${gameID}`, {userAnswers}, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token")
+        Authorization: "Bearer " + localStorage.getItem("token-trivia-madness")
       }
     })
   },
@@ -48,7 +48,7 @@ export default {
   createNewGame(gameObj){
     return Axios.post("/api/game/newgame", gameObj, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token")
+        Authorization: "Bearer " + localStorage.getItem("token-trivia-madness")
       }})
   }
 }

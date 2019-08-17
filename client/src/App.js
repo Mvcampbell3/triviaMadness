@@ -39,7 +39,7 @@ class App extends Component {
   }
 
   logoutUser = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("token-trivia-madness");
     this.setState({ user: false, username: "", id: "", password: "", email: "", sendHome: true });
   }
 
@@ -50,13 +50,13 @@ class App extends Component {
   }
 
   loginUser = () => {
-    localStorage.removeItem("token")
+    localStorage.removeItem("token-trivia-madness")
     API.loginUser(this.state.email, this.state.password)
       .then(result => {
         console.log(result.data);
         if (result.data !== false) {
           this.setState({ user: true, username: result.data.username, failedLogin: false, justSigned: false })
-          localStorage.setItem("token", result.data.token)
+          localStorage.setItem("token-trivia-madness", result.data.token)
         } else {
           // alert("Wrong email or password");
           this.setState({ password: "", failedLogin: true })
@@ -103,13 +103,13 @@ class App extends Component {
   }
 
   checkAuth = () => {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("token-trivia-madness")) {
       console.log("has token");
       API.checkAuth()
         .then(result => {
           console.log(result.data)
           if (!result.data.user) {
-            localStorage.removeItem("token")
+            localStorage.removeItem("token-trivia-madness")
             this.setState({ user: false, checkedAuth: true })
             // reroute to login page
           } else {

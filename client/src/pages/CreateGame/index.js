@@ -2,15 +2,40 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom"
 import "./createGame.css";
 import API from '../../utils/API';
+import Scroll from "react-scroll";
 
 import Header from "../../components/Header"
+
+const Events = Scroll.Events;
+const scroll = Scroll.animateScroll;
+const scrollSpy = Scroll.scrollSpy;
 
 class CreateGame extends Component {
   state = {
     title: "",
     category: "",
     gameObj: {},
-    created: false
+    created: false,
+    scrollNumber: 500
+  }
+
+  componentDidMount() {
+
+    Events.scrollEvent.register('begin', function(to, element) {
+      // console.log("begin", arguments);
+    });
+    Events.scrollEvent.register('end', function(to, element) {
+      // console.log("end", arguments);
+    });
+    scrollSpy.update();
+
+  }
+
+  componentWillUnmount() {
+
+    Events.scrollEvent.remove('begin');
+    Events.scrollEvent.remove('end');
+    
   }
 
   sendToLogin = () => {
@@ -46,7 +71,6 @@ class CreateGame extends Component {
     const delBtn = document.createElement("button");
     delBtn.className = "delBtn";
     delBtn.addEventListener("click", function() {
-      console.log(this.parentElement);
       this.parentElement.className = "deleteQuestion";
     })
     delBtn.textContent = "X";
@@ -131,6 +155,10 @@ class CreateGame extends Component {
     answerBox.append(answer1, answer2, answer3, answer4)
     newQuestion.append(delBtn, question, answerBox);
     questionCreateArea.append(newQuestion);
+
+    setTimeout(() => {
+      scroll.scrollToBottom();
+    }, 280)
   }
 
   grabQuiz = () => {

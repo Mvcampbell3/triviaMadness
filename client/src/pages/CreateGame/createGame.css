@@ -78,10 +78,12 @@
 
 .newQuestion{
   height: 0px;
+  margin-bottom: 2em;
   overflow-y: hidden;
   animation-name: dropQuestion;
   animation-duration: .3s;
-  animation-fill-mode: forwards
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
 }
 
 @keyframes dropQuestion{
