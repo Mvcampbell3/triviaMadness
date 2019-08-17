@@ -31,7 +31,9 @@ class App extends Component {
     justSigned: false,
     showMessage: false,
     messageTitle: "",
-    messageContent: ""
+    messageContent: "",
+    sendGames: false,
+    sendCreate: false
   }
 
   componentDidMount() {

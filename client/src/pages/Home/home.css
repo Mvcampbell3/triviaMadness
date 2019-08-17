@@ -59,6 +59,7 @@
   color: white;
   background: url("../../images/planet2.png");
   background-size: 800px;
+  text-decoration: none;
 }
 
 #boxMove{

@@ -3,6 +3,7 @@ import "./home.css";
 import Header from "../../components/Header";
 import PictureMeme from "../../images/jumpWaterMeme.jpg";
 import Loader from "../../components/Loader";
+import { Link } from "react-router-dom";
 
 const Home = (props) => {
   return (
@@ -15,8 +16,8 @@ const Home = (props) => {
               <div className="return">
                 <h4>Welcome Back {props.username}!</h4>
                 <div className="holderPlaces">
-                  <div className="boxPlace" id="boxMove">Create</div>
-                  <div className="boxPlace" id="boxMove2">Play</div>
+                  <Link to="/creategame" className="boxPlace" id="boxMove">Create</Link>
+                  <Link to="/games" className="boxPlace" id="boxMove2">Play</Link>
                   <div className="boxPlace" id="boxMove3">Trivia</div>
                 </div>
               </div>
