@@ -17,11 +17,16 @@ class GameSelection extends Component {
     musicGames: [],
     scienceGames: [],
     otherGames: [],
-    loaded: false
+    loaded: false,
+    isMounted: true
   }
 
   componentDidMount() {
     this.checkAuth();
+  }
+
+  componentWillUnmount() {
+    this.setState({ isMounted: false })
   }
 
   getAllGames = () => {
@@ -56,7 +61,7 @@ class GameSelection extends Component {
     API.checkAuth()
       .then(result => {
         console.log(result);
-        if (result.data.user) {
+        if (result.data.user && this.state.isMounted) {
           this.setState({ user: result.data.user, username: result.data.username, userID: result.data.id })
           this.getAllGames();
         } else {

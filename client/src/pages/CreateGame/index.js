@@ -172,7 +172,7 @@ class CreateGame extends Component {
     }
 
     allQuestions.forEach(one => {
-      if (one.dataset.question === "empty" || one.dataset.answer0 === "empty" || one.dataset.answer1 === "empty" || one.dataset.answer2 === "empty" || one.dateset.answer3 === "empty" || one.dataset.correct === "empty") {
+      if (one.dataset.question === "empty" || one.dataset.answer0 === "empty" || one.dataset.answer1 === "empty" || one.dataset.answer2 === "empty" || one.dataset.answer3 === "empty" || one.dataset.correct === "empty") {
         console.log("this will not work");
         badQuiz = true;
       }

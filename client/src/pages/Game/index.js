@@ -24,6 +24,12 @@ class Game extends Component {
     this.getGame()
   }
 
+  componentWillUnmount() {
+    if (this.intervalTimer !== null) {
+      clearInterval(this.intervalTimer);
+    }
+  }
+
   redirectHome = () => {
     if (!this.props.user) {
       return <Redirect to="/" />
@@ -41,6 +47,7 @@ class Game extends Component {
       .then(result => {
         console.log(result.data);
         console.log(result.data.questions.length);
+        const timeDisp = this.displayTime(result.data.questions.length * 30)
         let numberOfQuestions = result.data.questions.length;
         let placeholderArray = [];
         for (let i = 0; i < numberOfQuestions; i++) {
@@ -52,7 +59,7 @@ class Game extends Component {
           loaded: true,
           userAnswers: placeholderArray,
           title: result.data.title,
-          timerStart: result.data.questions.length * 30
+          timerStart: `${timeDisp[0]} : ${timeDisp[1]}`
         })
       })
       .catch(err => console.log(err))
@@ -148,19 +155,48 @@ class Game extends Component {
     const timePlace = document.getElementById("timePlace");
     console.log(howMany)
     let timeLeft = howMany * 30;
-    console.log(timeLeft)
+    console.log(timeLeft);
+    console.log(timeLeft % 60);
+    const minsLeft = Math.floor(timeLeft/60);
+    const secsLeft = timeLeft % 60;
+    console.log(minsLeft, secsLeft);
     this.intervalTimer = setInterval(() => {
       if (timeLeft === 0) {
         this.outOfTime();
       } else {
         timeLeft--;
         // Do sometime to display time;
-        timePlace.textContent = timeLeft;
+        const timeDisp = this.displayTime(timeLeft);
+        console.log(timeDisp);
+        timePlace.textContent = `${timeDisp[0]} : ${timeDisp[1]}`;
         // Temp fix
         console.log(timeLeft);
       }
     }, 1000)
   }
+
+  displayTime = (timeLeft) => {
+    const minsLeft = Math.floor(timeLeft/60);
+    const secsLeft = timeLeft % 60;
+    let minDisp, secDisp;
+    if (minsLeft === 0) {
+      minDisp = "00";
+    } else if (minsLeft < 10) {
+      minDisp = `0${minsLeft}`
+    } else {
+      minDisp = minsLeft
+    }
+
+    if (secsLeft === 0) {
+      secDisp = "00";
+    } else if (secsLeft < 10) {
+      secDisp = `0${secsLeft}`
+    } else {
+      secDisp = secsLeft
+    }
+
+    return [minDisp, secDisp];
+  } 
 
   intervalTimer = null;
 

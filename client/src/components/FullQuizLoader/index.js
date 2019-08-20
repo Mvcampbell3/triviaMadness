@@ -14,7 +14,8 @@ class FullQuizLoader extends Component {
   componentDidMount() {
     console.log(this.props.game)
     console.log(this.props.game.questions.length)
-    this.setState({ questionsLength: this.props.game.questions.length })
+    const lastAnswer = this.props.game.questions.length === 1 ? true : false;
+    this.setState({ questionsLength: this.props.game.questions.length, lastOne: lastAnswer })
   }
 
   moveRight = () => {
