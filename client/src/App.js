@@ -95,6 +95,9 @@ class App extends Component {
         if (which.data.code === 11000) {
           console.log("This is a dup email/username error");
           return this.setState({ showMessage: true, messageContent: "Email and/or username already taken", messageTitle: "Opps" })
+        } else if (which.data.errors.email) {
+          console.log("This has an email error")
+          return this.setState({ showMessage: true, messageContent: "Not a valid email address", messageTitle: "Opps" })
         }
         this.setState({ showMessage: true, messageContent: "Something went wrong", messageTitle: "Opps" })
       })

@@ -33,24 +33,27 @@ class GameSelection extends Component {
     API.getAllGames()
       .then(result => {
         console.log(result)
-        this.setState(prevState => {
-          prevState.gamesLatest = result.data;
-          prevState.historyGames = result.data.filter(game => game.category === "History");
-          prevState.moviesAndTVGames = result.data.filter(game => game.category === "Movies and TV");
-          prevState.musicGames = result.data.filter(game => game.category === "Music");
-          prevState.scienceGames = result.data.filter(game => game.category === "Science");
-          prevState.otherGames = result.data.filter(game => game.category === "Other");
-          return prevState;
-        }, () => {
-          console.log(this.state);
-          // this.setState({ loaded: true })
-          console.log("loaded");
-          setTimeout(() => {
-            this.setState({ loaded: true });
-            console.log("timeout ran")
-
-          }, 750)
-        })
+        if (this.state.isMounted) {
+          this.setState(prevState => {
+            prevState.gamesLatest = result.data;
+            prevState.historyGames = result.data.filter(game => game.category === "History");
+            prevState.moviesAndTVGames = result.data.filter(game => game.category === "Movies and TV");
+            prevState.musicGames = result.data.filter(game => game.category === "Music");
+            prevState.scienceGames = result.data.filter(game => game.category === "Science");
+            prevState.otherGames = result.data.filter(game => game.category === "Other");
+            return prevState;
+          }, () => {
+            console.log(this.state);
+            // this.setState({ loaded: true })
+            console.log("loaded");
+            setTimeout(() => {
+              if (this.state.isMounted) {
+                this.setState({ loaded: true });
+                console.log("timeout ran")
+              }
+            }, 250)
+          })
+        }
       })
       .catch(err => {
         console.log(err)
@@ -61,12 +64,14 @@ class GameSelection extends Component {
     API.checkAuth()
       .then(result => {
         console.log(result);
-        if (result.data.user && this.state.isMounted) {
-          this.setState({ user: result.data.user, username: result.data.username, userID: result.data.id })
-          this.getAllGames();
-        } else {
-          this.props.removeUser();
-          this.redirectHome();
+        if (this.state.isMounted) {
+          if (result.data.user && this.state.isMounted) {
+            this.setState({ user: result.data.user, username: result.data.username, userID: result.data.id })
+            this.getAllGames();
+          } else {
+            this.props.removeUser();
+            this.redirectHome();
+          }
         }
       })
       .catch(err => console.log(err))

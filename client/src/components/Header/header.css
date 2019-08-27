@@ -2,6 +2,7 @@ header {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 10px 10px;
   background-color: #eee;
   border-top-left-radius: 5px;
@@ -39,4 +40,15 @@ nav ul li a:hover {
 nav ul li:hover{
   background-color: white;
   box-shadow: 1px 1px 3px black;
+}
+
+@media (max-width: 500px) {
+  nav ul li a, .logoutBtn {
+    font-size: 10px;
+  }
+
+  header h2{
+    font-size: 16px;
+  }
+
 }

@@ -20,6 +20,7 @@ const Home = (props) => {
                   <Link to="/games" className="boxPlace" id="boxMove2">Play</Link>
                   <div className="boxPlace" id="boxMove3">Trivia</div>
                 </div>
+                <h4 className="main-title text-center">User Stats coming soon!</h4>
               </div>
               {/* Place for logged in users */}
             </div> :
