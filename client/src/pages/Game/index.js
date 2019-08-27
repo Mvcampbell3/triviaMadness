@@ -216,9 +216,9 @@ class Game extends Component {
         <Header user={this.props.user} logoutUser={this.props.logoutUser} />
         <div className="wrapper">
           {this.state.loaded ? <div>
-            <h2 className="text-center">Quiz Title: {this.state.game.title}</h2>
-            <h3 className="text-center">Category: {this.state.game.category}</h3>
-            <h3 className="text-center">Time Limit: 30 seconds per question</h3>
+            <h2 className="text-center main-title">Quiz Title: {this.state.game.title}</h2>
+            <h3 className="text-center main-title">Category: {this.state.game.category}</h3>
+            <h3 className="text-center main-title">Time Limit: 30 seconds per question</h3>
             <h3 className="text-center" id="timePlace">{this.state.timerStart}</h3>
             {this.state.start ? null :
               <div className="beforeQuiz">

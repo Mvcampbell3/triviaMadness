@@ -35,11 +35,11 @@
 }
 
 .styleText{
-  color: #bbb;
+  color: #333;
 }
 
 .activeStyle{
-  color: #111;
+  color: rgb(4, 130, 248);
 }
 
 .subBtn{

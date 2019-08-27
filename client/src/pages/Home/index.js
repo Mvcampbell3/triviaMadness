@@ -14,7 +14,7 @@ const Home = (props) => {
             <div className="container">
               <Header user={props.user} logoutUser={props.logoutUser} />
               <div className="return">
-                <h4>Welcome Back {props.username}!</h4>
+                <h4 className="main-title">Welcome Back {props.username}!</h4>
                 <div className="holderPlaces">
                   <Link to="/creategame" className="boxPlace" id="boxMove">Create</Link>
                   <Link to="/games" className="boxPlace" id="boxMove2">Play</Link>
