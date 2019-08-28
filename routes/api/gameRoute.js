@@ -2,6 +2,7 @@ const router = require("express").Router();
 const db = require("../../models");
 const checkAuth = require("../../middleware/checkAuth");
 const isMod = require("../../middleware/isMod")
+const seeds = require("../../seeds");
 
 // add checkAuth back in to routes!
 
@@ -59,9 +60,9 @@ router.delete("/deletegame/:id", isMod, (req, res, next) => {
     })
 })
 
-router.delete("/deleteallgames", isMod, (req,res,next) => {
+router.delete("/deleteallgames", isMod, (req, res, next) => {
   db.Game.deleteMany()
-    .then(result => res.status(200).json({result: result, all: "gone"}))
+    .then(result => res.status(200).json({ result: result, all: "gone" }))
     .catch(err => res.status(400).json(err))
 })
 
@@ -121,6 +122,18 @@ router.post("/gradegame/:id", checkAuth, (req, res, next) => {
     .catch(err => {
       console.log(err);
       res.status(404).json(err)
+    })
+})
+
+router.get("/seed", isMod, (req, res, next) => {
+  Promise.all(seeds.forEach(seed => seed.save()))
+    .then(result => {
+      console.log(result);
+      res.json("done");
+    })
+    .catch(err => {
+      console.log(err);
+      res.json(err)
     })
 })
 

@@ -86,12 +86,12 @@ const seed1 = new Game({
     },
   ],
   correct: [
-    "Gerald Ford", 
-    "William Henry Harrison", 
-    "Grover Cleveland", 
-    "Richard Nixon", 
-    "James Madison", 
-    "Franklin Roosevelt", 
+    "Gerald Ford",
+    "William Henry Harrison",
+    "Grover Cleveland",
+    "Richard Nixon",
+    "James Madison",
+    "Franklin Roosevelt",
     "Dwight D. Eisenhower",
     "Theodore Roosevelt"
   ],
@@ -104,17 +104,98 @@ const seed2 = new Game({
   reviewed: false,
   questions: [
     {
-      question: "Is this going to work?",
+      question: "Which enchantment uses gained experience to repair items",
       answers: [
-        "I",
-        "Hope",
-        "It",
-        "Does"
+        "Looting",
+        "Repairing",
+        "Mending",
+        "Unbreaking"
+      ]
+    },
+    {
+      question: "What are the two ingredients of TNT?",
+      answers: [
+        "Dynamite and Gravel",
+        "Gunpowder and Sand",
+        "Ghast Tears and Netherrack",
+        "Ender Pearls and End Stone"
+      ]
+    },
+    {
+      question: "Which tier of tools has the most durablility?",
+      answers: [
+        "Gold",
+        "Stone",
+        "Iron",
+        "Diamond"
+      ]
+    },
+    {
+      question: "What does a creeper turn into when it is struck by lightning?",
+      answers: [
+        "Charged Creeper",
+        "Crazy Creeper",
+        "Cannon Creeper",
+        "Clawed Creeper"
+      ]
+    },
+    {
+      question: "Which mob can drop bones when it is killed?",
+      answers: [
+        "Enderman",
+        "Zombie",
+        "Skeleton",
+        "Spider"
+      ]
+    },
+    {
+      question: "What is the size of a 'chunk' in blocks?",
+      answers: [
+        "8 X 8",
+        "16 X 16",
+        "32 X 32",
+        "64 X 64"
+      ]
+    },
+    {
+      question: "What kind of stucture is the End Portal located at?",
+      answers: [
+        "Village",
+        "Stronghold",
+        "Abandoned Mineshaft",
+        "Nether Fortress"
+      ]
+    },
+    {
+      question: "How many Eyes of Ender does it take to fill the End Portal frame?",
+      answers: [
+        "16",
+        "8",
+        "10",
+        "12"
+      ]
+    },
+    {
+      question: "What biome does bamboo grow naturally in?",
+      answers: [
+        "Mountain",
+        "Plains",
+        "Jungle",
+        "Desert"
+      ]
+    },
+    {
+      question: "Which resource is it not possible to set up a farming technique for?",
+      answers: [
+        "Gold",
+        "Iron",
+        "Emeralds",
+        "Diamonds"
       ]
     }
   ],
-  correct: "Does",
-  title: "Test26",
+  correct: ["Mending", "Gunpowder and Sand", "Diamond", "Charged Creeper", "Skeleton", "16 X 16", "Stronghold", "12", "Jungle", "Diamonds"],
+  title: "Minecraft",
   category: "Other",
   creatorID: userID
 });
@@ -290,8 +371,4 @@ const seed11 = new Game({
   creatorID: userID
 });
 
-module.exports = function() {
-  // const promiseArr = [seed1, seed2, seed3, seed4, seed5, seed6, seed7, seed8, seed9, seed10, seed11];
-  // promiseArr.forEach(game => { game.save() })
-  seed1.save();
-}
+module.exports = [seed1, seed2];
