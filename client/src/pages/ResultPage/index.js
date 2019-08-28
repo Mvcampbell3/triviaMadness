@@ -9,12 +9,14 @@ const ResultPage = (props) => {
   return (
     <div className="container">
       {props.resultToHome()}
+      {props.scrollTopPage()}
       <Header user={props.user} logoutUser={props.logoutUser} />
       <div className="wrapper">
         {props.gameResult.username ?
           <div className="resultBox">
             <h3 className="text-center main-title">{username}, you got {score}!</h3>
             <h3 className="text-center main-title">Quiz Name: {props.title}</h3>
+            <Link className="linkBack text-center" to="/">Back</Link>
             <div className="answerArea">
               <h3 className="lightColor">Answers:</h3>
               {console.log(props.gameResult)}
@@ -27,7 +29,7 @@ const ResultPage = (props) => {
               )}
             </div>
 
-            <Link className="linkBack" to="/">Back</Link>
+            <Link className="linkBack text-center" to="/">Back</Link>
 
           </div>
           : null}

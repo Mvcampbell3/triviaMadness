@@ -22,9 +22,11 @@ class Game extends Component {
 
   componentDidMount() {
     this.getGame()
+    document.addEventListener("scroll", this.getTop)
   }
 
   componentWillUnmount() {
+    document.removeEventListener("scroll", this.getTop)
     if (this.intervalTimer !== null) {
       clearInterval(this.intervalTimer);
     }
@@ -33,6 +35,25 @@ class Game extends Component {
   redirectHome = () => {
     if (!this.props.user) {
       return <Redirect to="/" />
+    }
+  }
+
+  getTop = () => {
+    const timePlace = document.getElementById("timePlace");
+    if (window.scrollY <= 243.9) {
+      timePlace.style.position = "relative";
+      timePlace.style.zIndex = 12;
+      timePlace.style.width = "100%";
+      timePlace.style.textAlign = "center";
+      timePlace.style.borderBottom = "none";
+    } else {
+      timePlace.style.position = "fixed";
+      timePlace.style.top = "0px";
+      timePlace.style.width = "100%";
+      timePlace.style.left = "0px";
+      timePlace.style.zIndex = 12;
+      timePlace.style.textAlign = "center";
+      timePlace.style.borderBottom = ".5px darkred solid";
     }
   }
 
@@ -153,13 +174,14 @@ class Game extends Component {
   gameTimer = () => {
     const howMany = this.state.game.questions.length;
     const timePlace = document.getElementById("timePlace");
-    console.log(howMany)
+    // console.log(timePlace.getBoundingClientRect().top)
+    // console.log(howMany)
     let timeLeft = howMany * 30;
-    console.log(timeLeft);
-    console.log(timeLeft % 60);
-    const minsLeft = Math.floor(timeLeft/60);
-    const secsLeft = timeLeft % 60;
-    console.log(minsLeft, secsLeft);
+    // console.log(timeLeft);
+    // console.log(timeLeft % 60);
+    // const minsLeft = Math.floor(timeLeft/60);
+    // const secsLeft = timeLeft % 60;
+    // console.log(minsLeft, secsLeft);
     this.intervalTimer = setInterval(() => {
       if (timeLeft === 0) {
         this.outOfTime();
@@ -167,16 +189,16 @@ class Game extends Component {
         timeLeft--;
         // Do sometime to display time;
         const timeDisp = this.displayTime(timeLeft);
-        console.log(timeDisp);
+        // console.log(timeDisp);
         timePlace.textContent = `${timeDisp[0]} : ${timeDisp[1]}`;
         // Temp fix
-        console.log(timeLeft);
+        // console.log(timeLeft);
       }
     }, 1000)
   }
 
   displayTime = (timeLeft) => {
-    const minsLeft = Math.floor(timeLeft/60);
+    const minsLeft = Math.floor(timeLeft / 60);
     const secsLeft = timeLeft % 60;
     let minDisp, secDisp;
     if (minsLeft === 0) {
@@ -196,7 +218,7 @@ class Game extends Component {
     }
 
     return [minDisp, secDisp];
-  } 
+  }
 
   intervalTimer = null;
 
@@ -219,7 +241,9 @@ class Game extends Component {
             <h2 className="text-center main-title">Quiz Title: {this.state.game.title}</h2>
             <h3 className="text-center main-title">Category: {this.state.game.category}</h3>
             <h3 className="text-center main-title">Time Limit: 30 seconds per question</h3>
-            <h3 className="text-center" id="timePlace">{this.state.timerStart}</h3>
+            <div id="timeHolder">
+              <h3 className="text-center" id="timePlace">{this.state.timerStart}</h3>
+            </div>
             {this.state.start ? null :
               <div className="beforeQuiz">
                 <div className="styleGame">

@@ -65,3 +65,9 @@
   box-shadow: none;
   transition: all, .25s
 }
+
+#timePlace{
+  background-color: white;
+  color: darkred;
+  font-size: 24px;
+}

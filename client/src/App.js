@@ -130,6 +130,10 @@ class App extends Component {
     }
   }
 
+  scrollTopPage = () => {
+    window.scrollTo(0, 0);
+  }
+
   switchSignup = () => {
     if (this.state.signup) {
       this.setState(prevState => {
@@ -244,6 +248,7 @@ class App extends Component {
               gameResult={this.state.gameResult}
               resultToHome={this.resultToHome}
               title={this.state.quizTitle}
+              scrollTopPage={this.scrollTopPage}
             />} />
             <Route component={Lost} />
           </Switch>
